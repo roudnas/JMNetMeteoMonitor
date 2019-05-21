@@ -11,7 +11,13 @@
     $this->data['Vlhkost'] = $DnesManager->getCurrentVlhkost(3710);
     $this->pohled = 'uvod';
   }
+
+  public function showSpecificView($view) {
+    require("views/home/" . $view . ".phtml");
   }
+
+  }
+
 
 
 
