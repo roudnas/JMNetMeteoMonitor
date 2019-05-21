@@ -5,7 +5,7 @@
       public function zpracuj($params) {
           $parsedU = $this->parseURL($params[0]);
           if (empty($parsedU[0])) {
-            $this->redir('dnes');
+            $this->redir('home');
           }
           $controllerClass = $this->toCamelCase(array_shift($parsedU)) . 'Controller';
           if (file_exists('controllers/'. $controllerClass . '.php')) {

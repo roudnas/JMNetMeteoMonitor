@@ -1,7 +1,7 @@
 <?php
-  class DnesController extends Controller {
+  class HomeController extends Controller {
     public function zpracuj($params) {
-    $DnesManager = new DnesManager();
+    $DnesManager = new HomeManager();
     $this->data['teplota'] = $DnesManager->getCurrentTemp(3710);
     $this->data['pocetMereni'] = $DnesManager->getPocetMereni(3710);
     $this->data['prvniMer'] = $DnesManager->getPrvniMereni(3710);

@@ -1,5 +1,5 @@
 <?php
-  class DnesManager {
+  class HomeManager {
 
     public function getCurrentTemp($id) {
     return  Db::singleQueryNA("select teplota, substr(datum,9,10) || '.' ||substr(datum,7,7) || '.' || substr(datum,1,4) || ' ' || substr(datum,12,19)  from teplomer_data where idcidlo = $id order by id desc;");
