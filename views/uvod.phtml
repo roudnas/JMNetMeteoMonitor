@@ -46,19 +46,19 @@
   </div>
 
   <section class="tabs p-5" id="aktualne">
-      <h1>Karel</h1>
+      <?php $this->showSpecificView("aktualne"); ?>
   </section>
 
   <section class="tabs p-5" id="dennisouhrn">
-    <h1>Josef</h1>
+    <?php $this->showSpecificView("dennisouhrn"); ?>
   </section>
 
   <section class="tabs p-5" id="mesicnisouhrn">
-    <h1>Magda</h1>
+    <?php $this->showSpecificView("mesicnisouhrn"); ?>
   </section>
 
   <section class="tabs p-5" id="rokysouhrn">
-    <h1>Zbyšek</h1>
+    <?php $this->showSpecificView("rocnisouhrn"); ?>
   </section>
 
 
@@ -77,6 +77,7 @@
         dennisouhrn.style.display = "block";
         mesicnisouhrn.style.display = "none";
         rokysouhrn.style.display = "none";
+        dennisouhrn.classList.toggle("active")
       } else if(clicked_id == "mesicniLi") {
         aktualne.style.display = "none";
         dennisouhrn.style.display = "none";
