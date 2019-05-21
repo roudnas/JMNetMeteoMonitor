@@ -1,1 +1,18 @@
-<h1>Uvod</h1>
+<div class="horniPanel row justify-content-around p-5">
+  <div class="infobox AktualniTeplota p-5 text-center">
+  <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
+  <h3><?= $teplota[1] ?></h3>
+  </div>
+  <div class="infobox AktualniTeplota p-5 text-center align-middle">
+  <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
+  <h3><?= $teplota[1] ?></h3>
+  </div>
+  <div class="infobox AktualniTeplota text-center px-2">
+          <h3 class="p-3 blueRow">Statistiky</h3>
+          <p class="statistika">Název čidla: <?= $pocetMereni[0] ?></p>
+          <p class="statistika">Počet měření: <?= $pocetMereni[0] ?></p>
+          <p class="statistika">První měření: <?= $prvniMer[0] ?></p>
+          <p class="statistika">Maximální teplota: <?= $maxTeplota['TEPLOTA'] ?>&deg;C</p>
+          <p class="statistika">Minimální teplota: <?= $minTeplota['TEPLOTA'] ?>&deg;C</p>
+  </div>
+</div>

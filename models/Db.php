@@ -9,21 +9,26 @@
         }
       }
 
+      public static function singleQuery($query) {
+        $prep = ibase_prepare(self::$connection, $query);
+        $return = ibase_execute($prep);
+        $row = ibase_fetch_assoc($return);
+        return $row;
+      }
+
+      public static function singleQueryNA($query) {
+        $prep = ibase_prepare(self::$connection, $query);
+        $return = ibase_execute($prep);
+        $row = ibase_fetch_row($return);
+        return $row;
+      }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+      public static function multiQuery($query) {
+        $prep = ibase_prepare(self::$connection, $query);
+        $return = ibase_execute($prep);
+        return $return;
+      }
   }
 
 

@@ -4,9 +4,26 @@
         <base href="/meteo.local" />
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="js/jquery-3.4.1.min.js" charset="utf-8"></script>
   </head>
   <body>
-    <article class="">
+    <header class="menu">
+      <nav class="navbar navbarMain navbar-expand-md bg-light" id="navbarMain">
+        <div class="container-fluid">
+          <a class="navbar-brand pl-5" href="home"><img class="mr-3" src="images/jmnet-logo.png" alt="" width="120">Meteo monitor</a>
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#MyTogglerNav" aria-controls="#MyTogglerNav"
+           aria-label="Toggle Navigation"><span class="navbar-toggler-icon"></span></button>
+           <section class="collapse navbar-collapse" id="MyTogglerNav">
+             <div class="navbar-nav ml-auto">
+             </div>
+           </section>
+        </div>
+      </nav>
+    </header>
+    <article class="pb-5">
       <?php $this->controller->showView(); ?>
     </article>
   </body>
