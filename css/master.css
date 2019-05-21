@@ -1,9 +1,10 @@
 body {
-  background: linear-gradient(to bottom, #ffffff, #e9edf9);
+  background: linear-gradient(to bottom, #ededed, #e9edf9);
   background-repeat: no-repeat;
   background-position: center;
 }
 .menu {
+  background-color: inherit !important;
   color: #425aa5;
 }
 .infobox {
@@ -11,6 +12,10 @@ body {
 }
 .blueRow {
   background-color: #425aa5;
+  color: #fff;
+}
+.redRow {
+  background-color: #E74C3C;
   color: #fff;
 }
 .statistika {

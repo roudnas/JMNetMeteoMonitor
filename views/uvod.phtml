@@ -1,15 +1,25 @@
 <div class="horniPanel row justify-content-around p-5">
-  <div class="infobox AktualniTeplota p-5 text-center">
+  <div class="infobox AktualniTeplota p-5 text-center  col-xl-3 col-lg-3 col-md-12">
   <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
   <h3><?= $teplota[1] ?></h3>
   </div>
-  <div class="infobox AktualniTeplota p-5 text-center align-middle">
-  <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
-  <h3><?= $teplota[1] ?></h3>
+  <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-5 col-lg-5 col-md-12">
+    <div class="teplota">
+      <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
+      <h3><?= $teplota[1] ?></h3>
+    </div>
+    <div class="row justify-content-center pt-5">
+      <div class="vlhkost blueRow col-5 mx-1">
+        <h2>Vlhkost: <?= $Vlhkost['ABSVLHKOST'] ?>%</h1>
+      </div>
+      <div class="rosnybod redRow col-5">
+        <h2>Rosný bod: <?= $Vlhkost['ROSNYBOD'] ?>&deg;C</h1>
+      </div>
+    </div>
   </div>
-  <div class="infobox AktualniTeplota text-center px-2">
-          <h3 class="p-3 blueRow">Statistiky</h3>
-          <p class="statistika">Název čidla: <?= $pocetMereni[0] ?></p>
+  <div class="infobox AktualniTeplota text-center col-xl-3 col-lg-3 col-md-12">
+          <h3 class="p-1 blueRow">Statistiky</h3>
+          <p class="statistika">Název čidla: <?= $jmenoCidla['JMENO'] ?></p>
           <p class="statistika">Počet měření: <?= $pocetMereni[0] ?></p>
           <p class="statistika">První měření: <?= $prvniMer[0] ?></p>
           <p class="statistika">Maximální teplota: <?= $maxTeplota['TEPLOTA'] ?>&deg;C</p>
