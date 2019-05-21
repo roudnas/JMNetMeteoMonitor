@@ -3,7 +3,7 @@
   <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
   <h3><?= $teplota[1] ?></h3>
   </div>
-  <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-4 col-lg-4 col-md-12">
+  <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-5 col-lg-5 col-md-12">
     <div class="teplota">
       <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
       <h3><?= $teplota[1] ?></h3>
@@ -27,20 +27,66 @@
   </div>
 </section>
 
-<section class="grafarna py-5 d-flex justify-content-center">
-  <ul class="nav nav-pills nav-fill w-80">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Aktuálně</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Denní souhrn</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Měsíční souhrn</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#">Roční souhrn</a>
-  </li>
-</ul>
+<article class="grafarna justify-content-center py-5">
+  <div class="menuSmall">
+    <ul class="nav nav-tabs">
+      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="aktualneLi">
+        <a class="nav-link active">Aktuálně</a>
+      </li>
+      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="denniLi">
+        <a class="nav-link">Denní souhrn</a>
+      </li>
+      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="mesicniLi">
+        <a class="nav-link">Měsíční souhrn</a>
+      </li>
+      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="rokyLi">
+        <a class="nav-link">Roční souhrn</a>
+      </li>
+    </ul>
+  </div>
 
-</section>
+  <section class="tabs p-5" id="aktualne">
+      <h1>Karel</h1>
+  </section>
+
+  <section class="tabs p-5" id="dennisouhrn">
+    <h1>Josef</h1>
+  </section>
+
+  <section class="tabs p-5" id="mesicnisouhrn">
+    <h1>Magda</h1>
+  </section>
+
+  <section class="tabs p-5" id="rokysouhrn">
+    <h1>Zbyšek</h1>
+  </section>
+
+
+
+</article>
+
+<script>
+  function handler(clicked_id) {
+      if (clicked_id == "aktualneLi") {
+          aktualne.style.display = "block";
+          dennisouhrn.style.display = "none";
+          mesicnisouhrn.style.display = "none";
+          rokysouhrn.style.display = "none";
+      } else if(clicked_id == "denniLi") {
+        aktualne.style.display = "none";
+        dennisouhrn.style.display = "block";
+        mesicnisouhrn.style.display = "none";
+        rokysouhrn.style.display = "none";
+      } else if(clicked_id == "mesicniLi") {
+        aktualne.style.display = "none";
+        dennisouhrn.style.display = "none";
+        mesicnisouhrn.style.display = "block";
+        rokysouhrn.style.display = "none";
+      } else if(clicked_id == "rokyLi") {
+        aktualne.style.display = "none";
+        dennisouhrn.style.display = "none";
+        mesicnisouhrn.style.display = "none";
+        rokysouhrn.style.display = "block";
+      }
+  }
+</script>
