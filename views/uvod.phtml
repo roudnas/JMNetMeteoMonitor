@@ -1,15 +1,15 @@
-<div class="horniPanel row justify-content-around p-5">
+<section class="horniPanel d-flex justify-content-between p-5">
   <div class="infobox AktualniTeplota p-5 text-center  col-xl-3 col-lg-3 col-md-12">
   <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
   <h3><?= $teplota[1] ?></h3>
   </div>
-  <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-5 col-lg-5 col-md-12">
+  <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-4 col-lg-4 col-md-12">
     <div class="teplota">
       <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
       <h3><?= $teplota[1] ?></h3>
     </div>
     <div class="row justify-content-center pt-5">
-      <div class="vlhkost blueRow col-5 mx-1">
+      <div class="vlhkost blueRow col-5 mx-1 align-middle">
         <h2>Vlhkost: <?= $Vlhkost['ABSVLHKOST'] ?>%</h1>
       </div>
       <div class="rosnybod redRow col-5">
@@ -25,4 +25,22 @@
           <p class="statistika">Maximální teplota: <?= $maxTeplota['TEPLOTA'] ?>&deg;C</p>
           <p class="statistika">Minimální teplota: <?= $minTeplota['TEPLOTA'] ?>&deg;C</p>
   </div>
-</div>
+</section>
+
+<section class="grafarna py-5 d-flex justify-content-center">
+  <ul class="nav nav-pills nav-fill w-80">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Aktuálně</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Denní souhrn</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Měsíční souhrn</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Roční souhrn</a>
+  </li>
+</ul>
+
+</section>

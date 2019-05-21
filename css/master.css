@@ -1,13 +1,18 @@
-body {
+footer {
+  height: 10vh;
+}
+.horniPanel {
   background: linear-gradient(to bottom, #ededed, #e9edf9);
   background-repeat: no-repeat;
   background-position: center;
+  overflow-x: hidden;
 }
 .menu {
   background-color: inherit !important;
   color: #425aa5;
 }
 .infobox {
+  background-color: #fff;
   box-shadow: 0 20px 25px 0 rgba(66, 90, 165, 0.2);
 }
 .blueRow {
