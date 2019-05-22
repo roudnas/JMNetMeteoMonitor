@@ -30,64 +30,51 @@
 <article class="grafarna justify-content-center py-5">
   <div class="menuSmall">
     <ul class="nav nav-tabs">
-      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="aktualneLi">
+      <li class="nav-item nav-item-smallMenu" onClick="loadTab('aktualne')" id="aktualneLi">
         <a class="nav-link active">Aktuálně</a>
       </li>
-      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="denniLi">
+      <li class="nav-item nav-item-smallMenu" onClick="loadTab('dennisouhrn')" id="denniLi">
         <a class="nav-link">Denní souhrn</a>
       </li>
-      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="mesicniLi">
+      <li class="nav-item nav-item-smallMenu" onClick="loadTab('mesicnisouhrn')" id="mesicniLi">
         <a class="nav-link">Měsíční souhrn</a>
       </li>
-      <li class="nav-item nav-item-smallMenu" onClick="handler(this.id)" id="rokyLi">
+      <li class="nav-item nav-item-smallMenu" onClick="loadTab('rocnisouhrn')" id="rokyLi">
         <a class="nav-link">Roční souhrn</a>
       </li>
     </ul>
   </div>
 
   <section class="tabs p-5" id="aktualne">
-      <?php $this->showSpecificView("aktualne"); ?>
+
   </section>
 
   <section class="tabs p-5" id="dennisouhrn">
-    <?php $this->showSpecificView("dennisouhrn"); ?>
+
   </section>
 
   <section class="tabs p-5" id="mesicnisouhrn">
-    <?php $this->showSpecificView("mesicnisouhrn"); ?>
+
   </section>
 
-  <section class="tabs p-5" id="rokysouhrn">
-    <?php $this->showSpecificView("rocnisouhrn"); ?>
+  <section class="tabs p-5" id="rocnisouhrn">
+
   </section>
 
 
 
 </article>
 
-<script>
-  function handler(clicked_id) {
-      if (clicked_id == "aktualneLi") {
-          aktualne.style.display = "block";
-          dennisouhrn.style.display = "none";
-          mesicnisouhrn.style.display = "none";
-          rokysouhrn.style.display = "none";
-      } else if(clicked_id == "denniLi") {
-        aktualne.style.display = "none";
-        dennisouhrn.style.display = "block";
-        mesicnisouhrn.style.display = "none";
-        rokysouhrn.style.display = "none";
-        dennisouhrn.classList.toggle("active")
-      } else if(clicked_id == "mesicniLi") {
-        aktualne.style.display = "none";
-        dennisouhrn.style.display = "none";
-        mesicnisouhrn.style.display = "block";
-        rokysouhrn.style.display = "none";
-      } else if(clicked_id == "rokyLi") {
-        aktualne.style.display = "none";
-        dennisouhrn.style.display = "none";
-        mesicnisouhrn.style.display = "none";
-        rokysouhrn.style.display = "block";
-      }
-  }
+<script type="text/javascript">
+let loadingImage = '<p><img src="images/loading.gif"></p>';
+function loadTab(tab) {
+        console.log("kliknuto")
+        if ($("#" + tab).html() != "") {
+          console.log("tady")
+            $("#" + tab).html(loadingImage);
+            $.get("views/home/" + tab + ".phtml", function (data) {
+                $("#" + tab).html(data);
+            });
+        }
+    }
 </script>
