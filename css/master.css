@@ -34,6 +34,30 @@ footer {
 #aktualneAjaxOutput {
   display:none;
 }
+.ajmenu {
+    background: linear-gradient(to bottom, #ededed, #e9edf9);
+  min-height: 60vh;
+}
+
+.ajmenu a {
+  text-decoration: none;
+  color: #fff;
+}
+.ajmenu a:hover {
+  color: #adadad;
+}
+.ajmenu .nav-item {
+ min-height: 7vh;
+ cursor: pointer;
+}
+.ajmenu .nav-item .nav-link {
+ color: #fff;
+
+}
+.ajmenu .nav-item .nav-link:hover {
+ color: #adadad;
+
+}
 /*
 #aktualne {
   display: block;
