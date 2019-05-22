@@ -1,5 +1,7 @@
 <?php
   class HomeController extends Controller {
+
+    
     public function zpracuj($params) {
     $DnesManager = new HomeManager();
     $this->data['teplota'] = $DnesManager->getCurrentTemp(3710);

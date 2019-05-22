@@ -30,7 +30,7 @@
 <article class="grafarna justify-content-center py-5">
   <div class="menuSmall">
     <ul class="nav nav-tabs">
-      <li class="nav-item nav-item-smallMenu" onClick="loadTab('aktualne')" id="aktualneLi">
+      <li class="nav-item nav-item-smallMenu" id="aktualneLi">
         <a class="nav-link active">Aktuálně</a>
       </li>
       <li class="nav-item nav-item-smallMenu" onClick="loadTab('dennisouhrn')" id="denniLi">
@@ -45,21 +45,21 @@
     </ul>
   </div>
 
-  <section class="tabs p-5" id="aktualne">
+  <section class="tabs-wrapper">
+    <div class="tabs p-5" id="aktualne">
+      <h1>Dnes</h1>
+      <br>
+      <h3>Teplota</h3>
+      <span>min: <?=  $teplota[1]  ?>&deg;C</span>
+      <span>průměr: <? $avgTeplota['TEPLOTA'] ?>&deg;C</span>
+      <span>max: <?  $maxTeplota['TEPLOTA'] ?>&deg;C</span>
+    </div>
 
+    <div class="tabs p-5" id="dennisouhrn"></div>
+    <div class="tabs p-5" id="mesicnisouhrn"></div>
+    <div class="tabs p-5" id="rocnisouhrn"></div>
   </section>
 
-  <section class="tabs p-5" id="dennisouhrn">
-
-  </section>
-
-  <section class="tabs p-5" id="mesicnisouhrn">
-
-  </section>
-
-  <section class="tabs p-5" id="rocnisouhrn">
-
-  </section>
 
 
 
@@ -68,9 +68,8 @@
 <script type="text/javascript">
 let loadingImage = '<p><img src="images/loading.gif"></p>';
 function loadTab(tab) {
-        console.log("kliknuto")
-        if ($("#" + tab).html() != "") {
-          console.log("tady")
+        if ($("#" + tab).html() == "") {
+          console.log(tab)
             $("#" + tab).html(loadingImage);
             $.get("views/home/" + tab + ".phtml", function (data) {
                 $("#" + tab).html(data);
