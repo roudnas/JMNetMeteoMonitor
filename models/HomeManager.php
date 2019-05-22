@@ -52,7 +52,7 @@
     }
 
     public function getTodayTempAndTime($id){
-      return Db::multiQuery("select first 5 skip 0 substr(datum,12,16) CAS, TEPLOTA from teplomer_data where id=$id order by id desc;");
+      return Db::multiQuery("select first 5 skip 0 substr(datum,12,13) CAS, TEPLOTA from teplomer_data where idcidlo = 3710 order by id desc;");
     }
 
     public function getCas($id) {

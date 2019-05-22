@@ -14,7 +14,9 @@ function drawBasic() {
     data.addColumn('number', 'teplota');
 
     data.addRows([
-      [<? $timeAndTemp['TEPLOTA'] ?> , <? $timeAndTemp['TEPLOTA'] ?> ]
+      <?php while ($row = ibase_fetch_object($timeAndTemp)) : ?>
+        [<?$row->CAS?> , <?$row->TEPLOTA?>]<?,?>
+      <?php endwhile ?>
     ]);
 
     var options = {
@@ -32,7 +34,6 @@ function drawBasic() {
   }
 }
 </script>
-
 
 <section class="horniPanel d-flex justify-content-between p-5">
   <div class="infobox AktualniTeplota text-center  col-xl-3 col-lg-3 col-md-12">
