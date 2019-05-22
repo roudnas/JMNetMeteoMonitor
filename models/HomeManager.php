@@ -55,6 +55,11 @@
         return Db::singleQueryNA("select first 1 skip 0 substr(datum,12,16) from teplomer_data where idcidlo = $id order by datum desc");
     }
 
+    public function getStanice() {
+      return Db::multiQuery("select id, jmeno from teplomer");
+
+    }
+
 
 
   }

@@ -22,8 +22,17 @@
              <div class="navbar-nav ml-auto">
              </div>
            </section>
+           <select class="custom-select w-25" onchange="redir(this.value)">
+             <option selected value="">Stanice</option>
+             <?php while($row = ibase_fetch_object($seznamStanic)) : ?>
+                  <option value="<?= $row->ID ?>"><?= $row->JMENO ?></option>
+             <?php endwhile ?>
+           </select>
         </div>
+
+      </div>
       </nav>
+
     </header>
 
     <div style="position:absolute;top:0;right:0;">
@@ -49,6 +58,10 @@
     <footer class="bg-dark text-center text-light">
         <h1>Made with love</h1>
     </footer>
-
+    <script>
+      function redir(str) {
+        window.location.replace("home/idStanice-" + str);
+      }
+    </script>
   </body>
 </html>
