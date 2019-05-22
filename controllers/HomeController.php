@@ -12,7 +12,8 @@
       }
 
     $DnesManager = new HomeManager();
-    $cas = $DnesManager->getCurrentTemp($this->staniceId);
+    try {
+    $cas = $DnesManager->getCas($this->staniceId);
     $cas = $cas[0];
     $this->data['id'] = $this->staniceId;
     $this->data['teplota'] = $DnesManager->getCurrentTemp($this->staniceId);
@@ -24,6 +25,12 @@
     $this->data['Vlhkost'] = $DnesManager->getCurrentVlhkost($this->staniceId);
     $this->data['posledniDobou'] = $DnesManager->getPosledniDobou($this->staniceId, $cas);
     $this->pohled = 'uvod';
+    if (!$this->data['posledniDobou']) {
+      $this->addMessage("chyba");
+    }
+  } catch (UserError $e) {
+    $this->addMessage($e->getMessage());
+  }
   }
 
   public function showSpecificView($view) {
