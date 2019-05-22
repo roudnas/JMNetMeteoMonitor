@@ -15,6 +15,8 @@
     try {
     $cas = $DnesManager->getCas($this->staniceId);
     $cas = $cas[0];
+    $date = $DnesManager->getDate($this->staniceId);
+    $date = $date[0];
     $this->data['id'] = $this->staniceId;
     $this->data['teplota'] = $DnesManager->getCurrentTemp($this->staniceId);
     $this->data['pocetMereni'] = $DnesManager->getPocetMereni($this->staniceId);
@@ -24,6 +26,7 @@
     $this->data['jmenoCidla'] = $DnesManager->getCidloNameById($this->staniceId);
     $this->data['Vlhkost'] = $DnesManager->getCurrentVlhkost($this->staniceId);
     $this->data['posledniDobou'] = $DnesManager->getPosledniDobou($this->staniceId, $cas);
+    $this->data['timeAndTemp'] = $DnesManager->getTodayTempAndTime($this->staniceId);
     $this->pohled = 'uvod';
     if (!$this->data['posledniDobou']) {
       $this->addMessage("chyba");

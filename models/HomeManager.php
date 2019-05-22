@@ -51,8 +51,16 @@
                             order by datum desc");
     }
 
+    public function getTodayTempAndTime($id){
+      return Db::multiQuery("select first 5 skip 0 substr(datum,12,16) CAS, TEPLOTA from teplomer_data where id=$id order by id desc;");
+    }
+
     public function getCas($id) {
         return Db::singleQueryNA("select first 1 skip 0 substr(datum,12,16) from teplomer_data where idcidlo = $id order by datum desc");
+    }
+
+    public function getDate($id){
+      return Db::singleQueryNA("select first 1 skip 0 substr(datum,1,11) from teplomer_data where idcidlo = $id order by datum desc");
     }
 
     public function getStanice() {
