@@ -26,7 +26,7 @@
       return Db::singleQuery("select first 1 skip 0 absvlhkost, rosnybod from teplomer_data where idcidlo = $id order by id desc");
     }
 
-    public fuction getMinTemp($id){
+    public function getMinTemp($id){
       return Db::singleQuery("select min(teplota) from teplomer_data where datum like 'CURRENT_DATE, %' and id = $id group by id;");
     }
 
