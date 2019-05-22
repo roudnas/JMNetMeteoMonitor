@@ -53,16 +53,16 @@ function drawBasic() {
     <?php endwhile  ?>
 
   </div>
-  <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-5 col-lg-5 col-md-12">
+  <div class="infobox AktualniTeplota p-5 text-center col-xl-5 col-lg-5 col-md-12">
     <div class="teplota">
       <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
       <h3><?= $teplota[1] ?></h3>
     </div>
     <div class="row justify-content-center pt-5">
-      <div class="vlhkost blueRow col-5 mx-1 align-middle">
+      <div class="vlhkost d-flex align-items-center justify-content-center text-center blueRow col-5 mx-1">
         <h2>Vlhkost: <?= $Vlhkost['ABSVLHKOST'] ?>%</h1>
       </div>
-      <div class="rosnybod redRow col-5">
+      <div class="rosnybod d-flex align-items-center justify-content-center text-center redRow col-5">
         <h2>Rosný bod: <?= $Vlhkost['ROSNYBOD'] ?>&deg;C</h1>
       </div>
     </div>
@@ -77,42 +77,59 @@ function drawBasic() {
   </div>
 </section>
 
-<article class="grafarna justify-content-center py-5">
-  <div class="menuSmall">
-    <ul class="nav nav-tabs">
-      <li class="nav-item nav-item-smallMenu" onClick="loadTab('aktualne')" id="aktualneLi">
-        <a class="nav-link nav-link-ajaxmenu active" id="aktualne">Aktuálně</a>
-      </li>
-      <li class="nav-item nav-item-smallMenu" onClick="loadTab('dennisouhrn')" id="denniLi">
-        <a class="nav-link nav-link-ajaxmenu" id="dennisouhrnA">Denní souhrn</a>
-      </li>
-      <li class="nav-item nav-item-smallMenu" onClick="loadTab('mesicnisouhrn')" id="mesicniLi">
-        <a class="nav-link nav-link-ajaxmenu" id="mesicnisouhrnA">Měsíční souhrn</a>
-      </li>
-      <li class="nav-item nav-item-smallMenu" onClick="loadTab('rocnisouhrn')" id="rokyLi">
-        <a class="nav-link nav-link-ajaxmenu" id="rocnisouhrnA">Roční souhrn</a>
-      </li>
-    </ul>
+  <div class="p-4">
+    <section class="ajmenu w-75 mx-auto">
+      <ul class="nav nav-pills nav-fill bg-dark">
+  <li class="nav-item" onClick="clickAjHandler('aktualne')">
+    <a class="nav-link pt-3 active">Aktuálně</a>
+  </li>
+  <li class="nav-item" onClick="clickAjHandler('dennisouhrn')">
+    <a class="nav-link pt-3">Denní souhrny</a>
+  </li>
+  <li class="nav-item" onClick="clickAjHandler('mesicnisouhrn')">
+    <a class="nav-link pt-3">Měsíční souhrny</a>
+  </li>
+  <li class="nav-item" onClick="clickAjHandler('rocnisouhrn')">
+    <a class="nav-link pt-3">Roční souhrny</a>
+  </li>
+  </ul>
+    <div id="ajoutput"></div>
+    </section>
   </div>
 
-  <section class="tabs-wrapper">
-    <div id="aktualneAjaxOutput">
-      <h1>Dnes</h1>
-      <br>
-      <h3>Teplota</h3>
-      <span>min: <?=  $teplota[1]  ?>&deg;C</span>
-      <span>průměr: <? $avgTeplota['TEPLOTA'] ?>&deg;C</span>
-      <span>max: <?  $maxTeplota['TEPLOTA'] ?>&deg;C</span>
-      <span><? $nazevCidla['JMENO'] ?></span>
-            <div id="chart_div"></div>
-    </div>
-    <div class="tabs p-5" id="outputAjax"></div>
-  </section>
+  <script type="text/javascript">
+          if (window.XMLHttpRequest) {
+              xmlhttp = new XMLHttpRequest();
+          } else {
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                if (document.getElementById("ajoutput").innerHTML = "") {
+                  document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
+                }
+                  document.getElementById("ajoutput").innerHTML = this.responseText;
+              }
+          };
+          xmlhttp.open("GET","views/home/aktualne.phtml",true);
+          xmlhttp.send();
 
-<script>
-  document.getElementById("outputAjax").innerHTML = document.getElementById('aktualneAjaxOutput').innerHTML;
-</script>
+          function clickAjHandler(str) {
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      if (document.getElementById("ajoutput").innerHTML = "") {
+                        document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
+                      }
+                        document.getElementById("ajoutput").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET","views/home/" + str + ".phtml",true);
+                xmlhttp.send();
+            }
 
-
-
-</article>
+  </script>
