@@ -30,7 +30,7 @@
 <article class="grafarna justify-content-center py-5">
   <div class="menuSmall">
     <ul class="nav nav-tabs">
-      <li class="nav-item nav-item-smallMenu" id="aktualneLi">
+      <li class="nav-item nav-item-smallMenu" onClick="loadTab('aktualne')" id="aktualneLi">
         <a class="nav-link nav-link-ajaxmenu active" id="aktualne">Aktuálně</a>
       </li>
       <li class="nav-item nav-item-smallMenu" onClick="loadTab('dennisouhrn')" id="denniLi">
@@ -46,7 +46,7 @@
   </div>
 
   <section class="tabs-wrapper">
-    <div class="tabs p-5" id="outputAjax">
+    <div id="aktualneAjaxOutput" style="display:none;">
       <h1>Dnes</h1>
       <br>
       <h3>Teplota</h3>
@@ -55,10 +55,8 @@
       <span>max: <?  $maxTeplota['TEPLOTA'] ?>&deg;C</span>
       <span><? $nazevCidla['JMENO'] ?></span>
     </div>
-
-    <div class="tabs p-5" id="dennisouhrn"></div>
-    <div class="tabs p-5" id="mesicnisouhrn"></div>
-    <div class="tabs p-5" id="rocnisouhrn"></div>
+    <div class="tabs p-5" id="outputAjax">
+    </div>
   </section>
 
 
@@ -68,8 +66,8 @@
 
 <script>
 function loadTab(str) {
-    if (str == "") {
-        document.getElementById("outputAjax").innerHTML = "";
+    if (str == "aktualne") {
+        document.getElementById("outputAjax").innerHTML = document.getElementById('aktualneAjaxOutput').innerHTML;
         return;
     } else {
         if (window.XMLHttpRequest) {
