@@ -31,22 +31,22 @@
   <div class="menuSmall">
     <ul class="nav nav-tabs">
       <li class="nav-item nav-item-smallMenu" id="aktualneLi">
-        <a class="nav-link active">Aktuálně</a>
+        <a class="nav-link nav-link-ajaxmenu active" id="aktualne">Aktuálně</a>
       </li>
       <li class="nav-item nav-item-smallMenu" onClick="loadTab('dennisouhrn')" id="denniLi">
-        <a class="nav-link">Denní souhrn</a>
+        <a class="nav-link nav-link-ajaxmenu" id="dennisouhrnA">Denní souhrn</a>
       </li>
       <li class="nav-item nav-item-smallMenu" onClick="loadTab('mesicnisouhrn')" id="mesicniLi">
-        <a class="nav-link">Měsíční souhrn</a>
+        <a class="nav-link nav-link-ajaxmenu" id="mesicnisouhrnA">Měsíční souhrn</a>
       </li>
       <li class="nav-item nav-item-smallMenu" onClick="loadTab('rocnisouhrn')" id="rokyLi">
-        <a class="nav-link">Roční souhrn</a>
+        <a class="nav-link nav-link-ajaxmenu" id="rocnisouhrnA">Roční souhrn</a>
       </li>
     </ul>
   </div>
 
   <section class="tabs-wrapper">
-    <div class="tabs p-5" id="aktualne">
+    <div class="tabs p-5" id="outputAjax">
       <h1>Dnes</h1>
       <br>
       <h3>Teplota</h3>
@@ -66,15 +66,24 @@
 
 </article>
 
-<script type="text/javascript">
-let loadingImage = '<p><img src="images/loading.gif"></p>';
-function loadTab(tab) {
-        if ($("#" + tab).html() == "") {
-          console.log(tab)
-            $("#" + tab).html(loadingImage);
-            $.get("views/home/" + tab + ".phtml", function (data) {
-                $("#" + tab).html(data);
-            });
+<script>
+function loadTab(str) {
+    if (str == "") {
+        document.getElementById("outputAjax").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("outputAjax").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","views/home/" + str + ".phtml",true);
+        xmlhttp.send();
     }
+}
 </script>
