@@ -14,6 +14,7 @@
         $return = ibase_execute($prep);
         $row = ibase_fetch_assoc($return);
         return $row;
+        ibase_close(self::$connection);
       }
 
       public static function singleQueryNA($query) {
@@ -21,6 +22,7 @@
         $return = ibase_execute($prep);
         $row = ibase_fetch_row($return);
         return $row;
+        ibase_close(self::$connection);
       }
 
 
@@ -28,6 +30,7 @@
         $prep = ibase_prepare(self::$connection, $query);
         $return = ibase_execute($prep);
         return $return;
+        ibase_close(self::$connection);
       }
   }
 
