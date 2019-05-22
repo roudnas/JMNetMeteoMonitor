@@ -44,6 +44,17 @@
       return Db::singleQuery("select max(teplota) from teplomer_data where datum like 'CURRENT_DATE, %' and id = $id group by id;");
     }
 
+    public function getPosledniDobou($id, $cas) {
+    return Db::multiQuery("select first 5 skip 0 substr(datum,9,10) || '.' ||substr(datum,6,7) || '.' || substr(datum,1,4) as cas, teplota, absvlhkost  from teplomer_data
+                            where idcidlo = $id
+                            and datum like '%$cas%'
+                            order by datum desc");
+    }
+
+    public function getCas($id) {
+        return Db::singleQueryNA("select first 1 skip 0 substr(datum,12,16) from teplomer_data where idcidlo = $id order by datum desc");
+    }
+
 
 
   }

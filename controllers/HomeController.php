@@ -12,6 +12,9 @@
       }
 
     $DnesManager = new HomeManager();
+    $cas = $DnesManager->getCurrentTemp($this->staniceId);
+    $cas = $cas[0];
+    $this->data['id'] = $this->staniceId;
     $this->data['teplota'] = $DnesManager->getCurrentTemp($this->staniceId);
     $this->data['pocetMereni'] = $DnesManager->getPocetMereni($this->staniceId);
     $this->data['prvniMer'] = $DnesManager->getPrvniMereni($this->staniceId);
@@ -19,7 +22,7 @@
     $this->data['minTeplota'] = $DnesManager->getExtremTeploty('min',$this->staniceId);
     $this->data['jmenoCidla'] = $DnesManager->getCidloNameById($this->staniceId);
     $this->data['Vlhkost'] = $DnesManager->getCurrentVlhkost($this->staniceId);
-    $this->data['id'] = $this->staniceId;
+    $this->data['posledniDobou'] = $DnesManager->getPosledniDobou($this->staniceId, $cas);
     $this->pohled = 'uvod';
   }
 

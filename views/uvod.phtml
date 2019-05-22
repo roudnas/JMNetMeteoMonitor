@@ -1,7 +1,10 @@
 <section class="horniPanel d-flex justify-content-between p-5">
-  <div class="infobox AktualniTeplota p-5 text-center  col-xl-3 col-lg-3 col-md-12">
-  <h1>Aktuální teplota: <?= $teplota[0] ?>&deg;C</h1>
-  <h3><?= $teplota[1] ?></h3>
+  <div class="infobox AktualniTeplota text-center  col-xl-3 col-lg-3 col-md-12">
+    <h3 class="p-1 blueRow">Dříve touto dobou</h3>
+    <?php while($row = ibase_fetch_object($posledniDobou)) : ?>
+        <p class="statistika"> <?=  $row->CAS . ' ' . $row->TEPLOTA  . ' ' . $row->ABSVLHKOST?> </p>
+        <hr>
+    <?php endwhile  ?>
   </div>
   <div class="infobox AktualniTeplota p-5 text-center align-middle col-xl-5 col-lg-5 col-md-12">
     <div class="teplota">
@@ -46,7 +49,7 @@
   </div>
 
   <section class="tabs-wrapper">
-    <div id="aktualneAjaxOutput" style="display:none;">
+    <div id="aktualneAjaxOutput">
       <h1>Dnes</h1>
       <br>
       <h3>Teplota</h3>
@@ -55,33 +58,12 @@
       <span>max: <?  $maxTeplota['TEPLOTA'] ?>&deg;C</span>
       <span><? $nazevCidla['JMENO'] ?></span>
     </div>
-    <div class="tabs p-5" id="outputAjax">
-    </div>
+    <div class="tabs p-5" id="outputAjax"></div>
   </section>
 
-
+<script>
+  document.getElementById("outputAjax").innerHTML = document.getElementById('aktualneAjaxOutput').innerHTML;
+</script>
 
 
 </article>
-
-<script>
-function loadTab(str) {
-    if (str == "aktualne") {
-        document.getElementById("outputAjax").innerHTML = document.getElementById('aktualneAjaxOutput').innerHTML;
-        return;
-    } else {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("outputAjax").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET","views/home/" + str + ".phtml",true);
-        xmlhttp.send();
-    }
-}
-</script>
