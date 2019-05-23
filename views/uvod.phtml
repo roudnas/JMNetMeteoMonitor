@@ -97,7 +97,7 @@
           function drawBasic_Aktuale_2_1() {
               var data = new google.visualization.DataTable();
               data.addColumn('number', 'čas');
-              data.addColumn('number', 'vlhkost');
+              data.addColumn('number', 'Vlhkost');
 
               data.addRows([
                 <?php while($dataGraf = ibase_fetch_object($getHumidity)) : ?>
@@ -149,6 +149,37 @@
                 }
               };
               var chart = new google.charts.Line(document.getElementById('chart_3dny'));
+              chart.draw(data, google.charts.Line.convertOptions(options));
+            }
+          }
+
+          //Graf vlhkost 3 dny
+          google.charts.setOnLoadCallback(drawChart_3DnyVlhkost);
+          function drawChart_3DnyVlhkost() {
+          google.charts.load('current', {'packages':['line']});
+          google.charts.setOnLoadCallback(drawBasic3DnyVlhkost);
+          function drawBasic3DnyVlhkost() {
+              var data = new google.visualization.DataTable();
+              data.addColumn('date', 'Datum');
+              data.addColumn('number', 'Vlhkost');
+
+              data.addRows([
+                <?php while($dG = ibase_fetch_object($getLast3DaysHumidity)) : ?>
+                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->RELVLHKOST?>],
+                <?php endwhile ?>
+              ]);
+
+              var options = {
+                'title': 'Poslední 3 dny',
+                'curveType': 'function',
+                hAxis: {
+                  title: 'Čas'
+                },
+                vAxis: {
+                  title: 'Hodnota'
+                }
+              };
+              var chart = new google.charts.Line(document.getElementById('chart_3dnyVlhkost'));
               chart.draw(data, google.charts.Line.convertOptions(options));
             }
           }
@@ -214,7 +245,7 @@
                   function drawBasic_Aktualne_2_2() {
                       var data = new google.visualization.DataTable();
                       data.addColumn('number', 'čas');
-                      data.addColumn('number', 'teplota');
+                      data.addColumn('number', 'Vlhkost');
 
                       data.addRows([
                         <?php while($dataGraf = ibase_fetch_object($getHumidity2)) : ?>
@@ -269,6 +300,37 @@
                     }
                   }
                   //Graf 3dny konec
+
+                  google.charts.setOnLoadCallback(drawChart_3DnyVlhkost);
+                  function drawChart_3DnyVlhkost() {
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawBasic3DnyVlhkost);
+                  function drawBasic3DnyVlhkost() {
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('date', 'Datum');
+                      data.addColumn('number', 'Vlhkost');
+
+                      data.addRows([
+                        <?php while($dG = ibase_fetch_object($getLast3DaysHumidity2)) : ?>
+                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->RELVLHKOST?>],
+                        <?php endwhile ?>
+                      ]);
+
+                      var options = {
+                        'title': 'Poslední 3 dny',
+                        'curveType': 'function',
+                        hAxis: {
+                          title: 'Čas'
+                        },
+                        vAxis: {
+                          title: 'Hodnota'
+                        }
+                      };
+                      var chart = new google.charts.Line(document.getElementById('chart_3dnyVlhkost'));
+                      chart.draw(data, google.charts.Line.convertOptions(options));
+                    }
+                  }
+
                 } else if (str == "dennisouhrn") {
 
                   //Graf denni 1

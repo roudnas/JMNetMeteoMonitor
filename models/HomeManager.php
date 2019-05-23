@@ -86,6 +86,13 @@
                             order by datum asc;");
     }
 
+    public function getLast3DaysHumidity($id){
+      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, RELVLHKOST
+                             from teplomer_data where
+                            datum > dateadd(-3 day to current_date) and idcidlo = $id
+                            order by datum asc;");
+    }
+
 
 //    select '['||substr(datum,1,11)||','||teplota ||','|| rychlost ||','|| rosnybod ||']' as DATA from teplomer_data
 //                                    where idcidlo = 3710
