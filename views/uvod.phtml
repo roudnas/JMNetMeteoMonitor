@@ -134,7 +134,7 @@
 
               data.addRows([
                 <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp)) : ?>
-                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
+                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
                 <?php endwhile ?>
               ]);
 
@@ -250,7 +250,7 @@
 
                       data.addRows([
                         <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp2)) : ?>
-                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
+                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
                         <?php endwhile ?>
                       ]);
 
