@@ -10,7 +10,7 @@
   $casRes = ibase_execute($casPrep);
   $casData = ibase_fetch_row($casRes);
   $casRed = $casData[0];
-  
+
   $prep1 = ibase_prepare("select first 5 skip 0 substr(datum,9,10) || '.' ||substr(datum,6,7) || '.' || substr(datum,1,4) as CAS, TEPLOTA, relvlhkost  from teplomer_data
                           where idcidlo = $stanId
                           and datum like '%$casRed%'

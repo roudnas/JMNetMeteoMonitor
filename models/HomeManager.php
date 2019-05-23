@@ -101,12 +101,6 @@
                               order by datum asc");
     }
 
-
-//    select '['||substr(datum,1,11)||','||teplota ||','|| rychlost ||','|| rosnybod ||']' as DATA from teplomer_data
-//                                    where idcidlo = 3710
-//                                    and datum BETWEEN dateadd(month, -1, CURRENT_DATE - EXTRACT(DAY FROM CURRENT_DATE) + 1)
-//                                    AND CURRENT_DATE - EXTRACT(DAY FROM CURRENT_DATE);
-
   }
 
 ?>

@@ -1,7 +1,52 @@
+<?php
+session_start();
+  $con =  ibase_connect("1.2.3.123:/var/lib/czf/jmnet.gdb", 'teplomer', 'remolpet');
+  $id = $_SESSION['staniceID'];
+  $prep = ibase_prepare("select distinct substr(datum,1,11) datum, min(teplota)MINTEMP,avg(teplota)AVGTEMP,max(teplota)MAXTEMP
+                            from teplomer_data
+                           where datum  > dateadd(-10 day to current_date)
+                          and idcidlo = $id
+                          group by datum
+                          order by datum desc");
+  $posledniDny = ibase_execute($prep);
 
+  $prep1 = ibase_prepare("select distinct substr(datum,1,11) datum, min(rychlost)MINRYCHLOST,avg(rychlost)AVGRYCHLOST,max(rychlost)MAXRYCHLOST,
+                          min(relvlhkost)MINVLHKOST,avg(relvlhkost)AVGVLHKOST,max(RELVLHKOST)MAXVLHKOST
+                            from teplomer_data
+                           where datum  > dateadd(-10 day to current_date)
+                          and idcidlo = $id
+                          group by datum
+                          order by datum desc");
+  $posledniDny1 = ibase_execute($prep1);
+
+  $prep2 = ibase_prepare("select distinct substr(datum,1,11) datum, min(relvlhkost)MINVLHKOST,avg(relvlhkost)AVGVLHKOST,max(RELVLHKOST)MAXVLHKOST
+                            from teplomer_data
+                           where datum  > dateadd(-10 day to current_date)
+                          and idcidlo = $id
+                          group by datum
+                          order by datum desc");
+  $posledniDny2 = ibase_execute($prep2);
+
+?>
 <div class="dennisouhrn p-5">
-<div style="border:2px solid #425aa5; background-color:#fff;" id="chart_denni"></div>
-<h1>Magda</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-   sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<div class="charts" style="border:2px solid #425aa5; background-color:#fff;" id="chart_denni"></div>
+<div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+  <h4 class="blueRow p-2">Teplota za poslední dny</h4>
+  <?php while($row = ibase_fetch_object($posledniDny)) : ?>
+    <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINTEMP ?>°C <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGTEMP ?>°C <span style="color:#425aa5;">Max.:</span> <?= $row->MAXTEMP ?>°C</p>
+  <?php endwhile ?>
+</div>
+<div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+  <h4 class="blueRow p-2">Ryhlost větru za poslední dny</h4>
+  <?php while($row = ibase_fetch_object($posledniDny1)) : ?>
+    <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINRYCHLOST ?>km/h <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGRYCHLOST ?>km/h <span style="color:#425aa5;">Max.:</span> <?= $row->MAXRYCHLOST ?>km/h</p>
+  <?php endwhile ?>
+</div>
+<div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+  <h4 class="blueRow p-2">Vlhkost za poslední dny</h4>
+  <?php while($row = ibase_fetch_object($posledniDny2)) : ?>
+    <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINVLHKOST ?>% <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGVLHKOST ?>% <span style="color:#425aa5;">Max.:</span> <?= $row->MAXVLHKOST ?>%</p>
+  <?php endwhile ?>
+</div>
+
 </div>

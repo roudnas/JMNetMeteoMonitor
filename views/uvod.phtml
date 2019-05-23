@@ -43,6 +43,7 @@
   </script>
 
   <script type="text/javascript">
+  function checkDolniData() {
   if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
   } else {
@@ -189,7 +190,9 @@
 
   xmlhttp.open("GET","views/home/aktualne.phtml",true);
   xmlhttp.send();
-
+}
+checkDolniData();
+setInterval('checkDolniData()',60000);
   function clickAjHandler(str) {
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
@@ -412,4 +415,5 @@
         xmlhttp.open("GET","views/home/" + str + ".phtml",true);
         xmlhttp.send();
     }
+
   </script>
