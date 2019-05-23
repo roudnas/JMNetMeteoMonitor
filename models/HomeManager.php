@@ -7,8 +7,8 @@
       return Db::singleQuery("select distinct jmeno from teplomer;");
     }
 
-    public function getCurrentTemp($id) {
-    return  Db::singleQueryNA("select teplota, substr(datum,9,10) || '.' ||substr(datum,7,7) || '.' || substr(datum,1,4) || ' ' || substr(datum,12,19)  from teplomer_data where idcidlo = $id order by id desc;");
+    public function getCurrentData($id) {
+    return  Db::singleQuery("select first 1 skip 0 teplota, substr(datum,9,10) || '.' ||substr(datum,7,7) || '.' || substr(datum,1,4) || ' ' || substr(datum,12,19) DATUM, relvlhkost, rosnybod, rychlost, tlak  from teplomer_data where idcidlo = $id order by id desc;");
     }
 
     public function getPocetMereni($id) {
@@ -26,14 +26,6 @@
 
     public function getCidloNameById($id) {
       return Db::singleQuery("select jmeno from teplomer where id = $id");
-    }
-
-    public function getCurrentVlhkost($id) {
-      return Db::singleQuery("select first 1 skip 0 relvlhkost, rosnybod from teplomer_data where idcidlo = $id order by id desc");
-    }
-
-    public function getCurrentVitrTlak($id) {
-      return Db::singleQuery("select first 1 skip 0 rychlost, tlak from teplomer_data where idcidlo = $id order by datum desc");
     }
 
     public function getExtremeByDay($id) {
@@ -56,7 +48,7 @@
                             order by datum desc");
     }
 
-    public function getTodayTempAndTime($id){
+    public function getTodaysTempAndTime($id){
       return Db::multiQuery("select first 5 skip 0 substr(datum,12,13) CAS, TEPLOTA from teplomer_data where idcidlo = $id order by id desc;");
     }
 
@@ -68,10 +60,6 @@
       return Db::singleQueryNA("select first 1 skip 0 substr(datum,1,11) from teplomer_data where idcidlo = $id order by datum desc");
     }
 
-    public function getStanice() {
-      return Db::multiQuery("select id, jmeno from teplomer");
-
-    }
 
     public function getTimeAndTemp($id){
       return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||']' as DATA from teplomer_data

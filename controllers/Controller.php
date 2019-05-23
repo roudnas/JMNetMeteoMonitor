@@ -3,8 +3,13 @@
     protected $data = array();
     protected $pohled = "";
     protected $hlavicka = array('titulek' => '', 'klicova_slova' => '', 'popis' => '');
+    protected $staniceId = 0;
 
     abstract function zpracuj($params);
+
+    public static function getStaniceId() {
+        return self::staniceId;
+    }
 
     private function sanitize($x = null) {
       if (!isset($x)) {

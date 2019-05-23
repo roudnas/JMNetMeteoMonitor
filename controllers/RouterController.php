@@ -3,7 +3,7 @@
       protected $controller;
 
       public function zpracuj($params) {
-          $DnesManager = New HomeManager();
+          $routerManager = New RouterManager();
           $parsedU = $this->parseURL($params[0]);
           if (empty($parsedU[0])) {
             $this->redir('home/idStanice-3710');
@@ -19,7 +19,7 @@
           $this->data['popis'] = $this->controller->hlavicka['popis'];
           $this->data['klicova_slova'] = $this->controller->hlavicka['klicova_slova'];
           $this->data['zpravy'] = $this->returnMessages();
-          $this->data['seznamStanic'] = $DnesManager->getStanice();
+          $this->data['seznamStanic'] = $routerManager->getStanice();
           $this->pohled = 'layout';
 
       }
