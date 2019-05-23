@@ -62,7 +62,7 @@
 
 
     public function getTimeAndTemp($id){
-      return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||']' as DATA from teplomer_data
+      return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||','|| rosnybod ||']' as DATA from teplomer_data
                                 where idcidlo = $id
                                 and datum like '' || (select first 1
                                 skip 0 substr(datum,1,11) from TEPLOMER_DATA
@@ -79,8 +79,17 @@
                                 order by datum asc;");
     }
 
+    public function getLast3DaysTimeTemp($id){
+      return Db::multiQuery("select '['||substr(datum,12,13)||','|| teplota ||','||rychlost||','||rosnybod||']' DATA from teplomer_data where
+                              datum > dateadd(-3 day to current_date) and idcidlo = $id
+                              order by datum asc;");
+    }
 
 
+//    select '['||substr(datum,1,11)||','||teplota ||','|| rychlost ||','|| rosnybod ||']' as DATA from teplomer_data
+//                                    where idcidlo = 3710
+//                                    and datum BETWEEN dateadd(month, -1, CURRENT_DATE - EXTRACT(DAY FROM CURRENT_DATE) + 1)
+//                                    AND CURRENT_DATE - EXTRACT(DAY FROM CURRENT_DATE);
 
   }
 
