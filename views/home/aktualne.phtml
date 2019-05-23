@@ -9,8 +9,7 @@
     where idcidlo = $id
     and datum like '' || (select first 1
     skip 0 substr(datum,1,11) from TEPLOMER_DATA
-    order by datum desc) ||'%'
-                              order by datum desc )");
+    order by datum desc) ||'%' order by datum desc )");
     $res = ibase_execute($prep);
     $row = ibase_fetch_assoc($res);
  ?>
@@ -19,7 +18,7 @@
   <h1 style="color:#425aa5;">Dnes</h1>
   <div class="row justify-content-around py-3" style="font-size:0.7em;">
     <h3>Teplota<br><hr> <span style="color:#425aa5;">Min.: </span><?= $row['MINTEMP'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGTEMP'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MAXTEMP'] ?> </h3>
-    <h3>Vlhkost<br><hr> <span style="color:#425aa5;">Min.: </span><?= $row['MINHUM'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['MINHUM'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MINHUM'] ?> </h3>
+    <h3>Vlhkost<br><hr> <span style="color:#425aa5;">Min.: </span><?= $row['MINHUM'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGHUM'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MAXHUM'] ?> </h3>
   </div>
 
   <div class="mt-4 p-1" style="border:2px solid #425aa5; background-color:#fff;" id="chart_aktualne"></div>

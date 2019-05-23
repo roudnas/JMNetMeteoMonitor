@@ -168,7 +168,7 @@
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-              if (document.getElementById("ajoutput").innerHTML = "") {
+              if (document.getElementById("ajoutput").innerHTML != this.responseText) {
                 document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
               }
                 document.getElementById("ajoutput").innerHTML = this.responseText;
@@ -238,6 +238,7 @@
                   }
                   //Graf aktualne 2.2 KONEC
                 } else if (str == "dennisouhrn") {
+
                   //Graf denni 1
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawChart4);
