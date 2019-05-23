@@ -74,12 +74,14 @@
           google.charts.setOnLoadCallback(drawChart);
           google.charts.setOnLoadCallback(drawChart1);
           function drawChart() {
-          google.charts.load('current', {packages: ['corechart', 'line']});
+          google.charts.load('current', {'packages':['line']});
           google.charts.setOnLoadCallback(drawBasic);
           function drawBasic() {
               var data = new google.visualization.DataTable();
               data.addColumn('number', 'čas');
               data.addColumn('number', 'Teplota');
+
+              data.addColumn('number', 'Rychlost větru');
 
 
               data.addRows([
@@ -90,6 +92,7 @@
 
               var options = {
                 'title': 'Posledních 24 hodin',
+                'curveType': 'function',
                 hAxis: {
                   title: 'Čas'
                 },
@@ -97,12 +100,12 @@
                   title: 'Hodnota'
                 }
               };
-              var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne'));
-              chart.draw(data, options);
+              var chart = new google.charts.Line(document.getElementById('chart_aktualne'));
+              chart.draw(data, google.charts.Line.convertOptions(options));
             }
           }
           function drawChart1() {
-          google.charts.load('current', {packages: ['corechart', 'line']});
+          google.charts.load('current', {'packages':['line']});
           google.charts.setOnLoadCallback(drawBasic1);
 
           function drawBasic1() {
@@ -123,7 +126,7 @@
                   title: 'Hodnota'
                 }
               };
-              var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne1'));
+              var chart = new google.charts.Line(document.getElementById('chart_aktualne1'));
               chart.draw(data, options);
             }
           }
@@ -149,7 +152,7 @@
                   google.charts.setOnLoadCallback(drawChart);
                   google.charts.setOnLoadCallback(drawChart1);
                   function drawChart() {
-                  google.charts.load('current', {packages: ['corechart', 'line']});
+                  google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawBasic);
 
                   function drawBasic() {
@@ -170,12 +173,12 @@
                           title: 'Hodnota'
                         }
                       };
-                      var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne'));
+                      var chart = new google.charts.Line(document.getElementById('chart_aktualne'));
                       chart.draw(data, options);
                     }
                   }
                   function drawChart1() {
-                  google.charts.load('current', {packages: ['corechart', 'line']});
+                  google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawBasic1);
 
                   function drawBasic1() {
@@ -196,7 +199,7 @@
                           title: 'Hodnota'
                         }
                       };
-                      var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne1'));
+                      var chart = new google.charts.Line(document.getElementById('chart_aktualne1'));
                       chart.draw(data, options);
                     }
                   }
@@ -204,7 +207,7 @@
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawChart3);
                   function drawChart3() {
-                  google.charts.load('current', {packages: ['corechart', 'line']});
+                  google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawBasic3);
 
                   function drawBasic3() {
@@ -213,7 +216,7 @@
                       data.addColumn('number', 'teplota');
 
                       data.addRows([
-
+                          [0,1],[0,2]
                     ]);
 
                       var options = {
@@ -225,7 +228,7 @@
                           title: 'Teplota'
                         }
                       };
-                      var chart = new google.visualization.LineChart(document.getElementById('chart_denni'));
+                      var chart = new google.charts.Line(document.getElementById('chart_denni'));
                       chart.draw(data, options);
                     }
                   }
@@ -234,7 +237,7 @@
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawChart3);
                   function drawChart3() {
-                  google.charts.load('current', {packages: ['corechart', 'line']});
+                  google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawBasic3);
 
                   function drawBasic3() {
@@ -255,7 +258,7 @@
                           title: 'Hodnota'
                         }
                       };
-                      var chart = new google.visualization.LineChart(document.getElementById('chart_mesicni'));
+                      var chart = new google.charts.Line(document.getElementById('chart_mesicni'));
                       chart.draw(data, options);
                     }
                   }
