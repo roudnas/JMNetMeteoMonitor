@@ -29,6 +29,7 @@
     $this->data['timeAndTemp'] = $DnesManager->getTodayTempAndTime($this->staniceId);
     $this->data['extremy'] = $DnesManager->getExtremeByDay($this->staniceId);
     $this->data['vitrTlak'] = $DnesManager->getCurrentVitrTlak($this->staniceId);
+    $this->data['getTimeAndTemp'] = $DnesManager->getTimeAndTemp($this->staniceId);
     $_SESSION['staniceID'] = $this->staniceId;
 
     $this->pohled = 'uvod';
