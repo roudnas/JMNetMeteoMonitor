@@ -33,9 +33,6 @@
       </div>
       </nav>
 
-      <span id="old_counter" style="display:none;"></span>
-      <span id="new_counter" style="display:none;"></span>
-
     </header>
 
     <div style="position:absolute;top:0;right:0;">
@@ -61,21 +58,6 @@
         <h3>&copy; JMNet z.s. 2019</h3> <br>
     </footer>
     <script>
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              document.getElementById("new_counter").innerHTML = this.responseText;
-              let new = document.getElementById("new_counter").innerHTML;
-              let old = document.getElementById("old_counter").innerHTML;
-              if (new != old) {
-                old = new;
-              }
-            }
-          };
-          xmlhttp.open("GET", "models/ajaxchecker.php", true);
-          xmlhttp.send();
-
-
       function redir(str) {
         window.location.replace("home/idStanice-" + str);
       }

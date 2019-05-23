@@ -56,18 +56,15 @@
           document.getElementById("ajoutput").innerHTML = this.responseText;
           //Graf aktualne 1.1
           google.charts.load('current', {'packages':['line']});
-
           google.charts.setOnLoadCallback(drawChart_Aktualne_1_1);
           function drawChart_Aktualne_1_1() {
           google.charts.load('current', {'packages':['line']});
-          google.charts.setOnLoadCallback(drawBasic_Aktuale_1_1);
-          function drawBasic_Aktuale_1_1() {
+          google.charts.setOnLoadCallback(drawBasic_Aktualne_1_1);
+          function drawBasic_Aktualne_1_1() {
               var data = new google.visualization.DataTable();
               data.addColumn('number', 'čas');
               data.addColumn('number', 'Teplota');
-
               data.addColumn('number', 'Rychlost větru');
-
 
               data.addRows([
                   <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp)) : ?>
@@ -145,17 +142,17 @@
                   google.charts.setOnLoadCallback(drawChart_Aktualne_1_2);
                   function drawChart_Aktualne_1_2() {
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic_Aktuale_1_2);
-                  function drawBasic_Aktuale_1_2() {
+                  google.charts.setOnLoadCallback(drawBasic_Aktualne_1_2);
+                  function drawBasic_Aktualne_1_2() {
                       var data = new google.visualization.DataTable();
                       data.addColumn('number', 'čas');
                       data.addColumn('number', 'Teplota');
                       data.addColumn('number', 'Rychlost větru');
 
                       data.addRows([
-                          <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp)) : ?>
-                            <?=  $dataGraf->DATA ?>,
-                          <?php endwhile ?>
+                        <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp2)) : ?>
+                          <?=  $dataGraf->DATA ?>,
+                        <?php endwhile ?>
                       ]);
 
                       var options = {
@@ -184,7 +181,7 @@
                       data.addColumn('number', 'teplota');
 
                       data.addRows([
-                        <?php while($dataGraf = ibase_fetch_object($getHumidity)) : ?>
+                        <?php while($dataGraf = ibase_fetch_object($getHumidity2)) : ?>
                           <?=  $dataGraf->DATA ?>,
                         <?php endwhile ?>
                       ]);
