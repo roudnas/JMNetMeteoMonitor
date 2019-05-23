@@ -35,7 +35,7 @@ xmlhttp.onreadystatechange = function() {
                 title: 'Hodnota'
               }
             };
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne'));
             chart.draw(data, options);
           }
         }
@@ -61,7 +61,7 @@ xmlhttp.onreadystatechange = function() {
                 title: 'Hodnota'
               }
             };
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne1'));
             chart.draw(data, options);
           }
         }
@@ -108,7 +108,7 @@ function clickAjHandler(str) {
                         title: 'Hodnota'
                       }
                     };
-                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne'));
                     chart.draw(data, options);
                   }
                 }
@@ -134,7 +134,7 @@ function clickAjHandler(str) {
                         title: 'Hodnota'
                       }
                     };
-                    var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_aktualne1'));
                     chart.draw(data, options);
                   }
                 }
@@ -164,6 +164,36 @@ function clickAjHandler(str) {
                       }
                     };
                     var chart = new google.visualization.LineChart(document.getElementById('chart_denni'));
+                    chart.draw(data, options);
+                  }
+                }
+
+              } else if (str == "mesicnisouhrn") {
+                google.charts.load('current', {'packages':['line']});
+                google.charts.setOnLoadCallback(drawChart3);
+                function drawChart3() {
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawBasic3);
+
+                function drawBasic3() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'čas');
+                    data.addColumn('number', 'teplota');
+
+                    data.addRows([
+                      [0,1],[1,2]
+                    ]);
+
+                    var options = {
+                      'title':'How Much Pizza I Ate Last Night',
+                      hAxis: {
+                        title: 'Čas'
+                      },
+                      vAxis: {
+                        title: 'Hodnota'
+                      }
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_mesicni'));
                     chart.draw(data, options);
                   }
                 }
