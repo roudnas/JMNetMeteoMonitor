@@ -31,10 +31,9 @@
     $this->data['getHumidity2'] = $DnesManager->getHumidity($this->staniceId);
     $_SESSION['staniceID'] = $this->staniceId;
 
+
     $this->pohled = 'uvod';
-    if (!$this->data['posledniDobou']) {
-      $this->addMessage("chyba");
-    }
+
   } catch (UserError $e) {
     $this->addMessage($e->getMessage());
   }
