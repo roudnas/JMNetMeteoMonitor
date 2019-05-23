@@ -72,12 +72,12 @@
           document.getElementById("ajoutput").innerHTML = this.responseText;
           //Graf aktualne 1.1
           google.charts.load('current', {'packages':['line']});
-          google.charts.setOnLoadCallback(drawChart);
-          google.charts.setOnLoadCallback(drawChart1);
-          function drawChart() {
+
+          google.charts.setOnLoadCallback(drawChart_Aktualne_1_1);
+          function drawChart_Aktualne_1_1() {
           google.charts.load('current', {'packages':['line']});
-          google.charts.setOnLoadCallback(drawBasic);
-          function drawBasic() {
+          google.charts.setOnLoadCallback(drawBasic_Aktuale_1_1);
+          function drawBasic_Aktuale_1_1() {
               var data = new google.visualization.DataTable();
               data.addColumn('number', 'čas');
               data.addColumn('number', 'Teplota');
@@ -108,17 +108,19 @@
           //Graf aktualne 1.1 KONEC
 
           //Graf aktualne 2.1
-          function drawChart1() {
+          google.charts.setOnLoadCallback(drawChart_Aktualne_2_1);
+          function drawChart_Aktualne_2_1() {
           google.charts.load('current', {'packages':['line']});
-          google.charts.setOnLoadCallback(drawBasic1);
-
-          function drawBasic1() {
+          google.charts.setOnLoadCallback(drawBasic_Aktuale_2_1);
+          function drawBasic_Aktuale_2_1() {
               var data = new google.visualization.DataTable();
               data.addColumn('number', 'čas');
-              data.addColumn('number', 'teplota');
+              data.addColumn('number', 'vlhkost');
 
               data.addRows([
-                [0,1],[1,2]
+                <?php while($dataGraf = ibase_fetch_object($getHumidity)) : ?>
+                  <?=  $dataGraf->DATA ?>,
+                <?php endwhile ?>
               ]);
 
               var options = {
@@ -127,7 +129,7 @@
                   title: 'Čas'
                 },
                 vAxis: {
-                  title: 'Hodnota'
+                  title: 'Vlhkost'
                 }
               };
               var chart = new google.charts.Line(document.getElementById('chart_aktualne1'));
@@ -156,23 +158,25 @@
                 if (str == "aktualne") {
                   //Graf aktualne 1.2
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChart);
-                  google.charts.setOnLoadCallback(drawChart1);
-                  function drawChart() {
+                  google.charts.setOnLoadCallback(drawChart_Aktualne_1_2);
+                  function drawChart_Aktualne_1_2() {
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic);
-
-                  function drawBasic() {
+                  google.charts.setOnLoadCallback(drawBasic_Aktuale_1_2);
+                  function drawBasic_Aktuale_1_2() {
                       var data = new google.visualization.DataTable();
                       data.addColumn('number', 'čas');
-                      data.addColumn('number', 'teplota');
+                      data.addColumn('number', 'Teplota');
+                      data.addColumn('number', 'Rychlost větru');
 
                       data.addRows([
-                        [0,1],[1,2]
+                          <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp)) : ?>
+                            <?=  $dataGraf->DATA ?>,
+                          <?php endwhile ?>
                       ]);
 
                       var options = {
-                        'title':'How Much Pizza I Ate Last Night',
+                        'title': 'Posledních 24 hodin',
+                        'curveType': 'function',
                         hAxis: {
                           title: 'Čas'
                         },
@@ -181,26 +185,28 @@
                         }
                       };
                       var chart = new google.charts.Line(document.getElementById('chart_aktualne'));
-                      chart.draw(data, options);
+                      chart.draw(data, google.charts.Line.convertOptions(options));
                     }
                   }
                   //Graf aktualne 1.2 KONEC
 
-                  function drawChart1() {
+                  google.charts.setOnLoadCallback(drawChart_Aktualne_2_2);
+                  function drawChart_Aktualne_2_2() {
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic1);
-
-                  function drawBasic1() {
+                  google.charts.setOnLoadCallback(drawBasic_Aktualne_2_2);
+                  function drawBasic_Aktualne_2_2() {
                       var data = new google.visualization.DataTable();
                       data.addColumn('number', 'čas');
                       data.addColumn('number', 'teplota');
 
                       data.addRows([
-                        [0,1],[1,2]
+                        <?php while($dataGraf = ibase_fetch_object($getHumidity)) : ?>
+                          <?=  $dataGraf->DATA ?>,
+                        <?php endwhile ?>
                       ]);
 
                       var options = {
-                        'title':'How Much Pizza I Ate Last Night',
+                        'title' :'How Much Pizza I Ate Last Night',
                         hAxis: {
                           title: 'Čas'
                         },
@@ -216,12 +222,12 @@
                 } else if (str == "dennisouhrn") {
                   //Graf denni 1
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChart3);
-                  function drawChart3() {
+                  google.charts.setOnLoadCallback(drawChart4);
+                  function drawChart4() {
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic3);
+                  google.charts.setOnLoadCallback(drawBasic4);
 
-                  function drawBasic3() {
+                  function drawBasic4() {
                       var data = new google.visualization.DataTable();
                       data.addColumn('number', 'čas');
                       data.addColumn('number', 'teplota');
@@ -247,12 +253,12 @@
                 } else if (str == "mesicnisouhrn") {
                   //Graf mesicni 1
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChart3);
-                  function drawChart3() {
+                  google.charts.setOnLoadCallback(drawChart5);
+                  function drawChart5() {
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic3);
+                  google.charts.setOnLoadCallback(drawBasic5);
 
-                  function drawBasic3() {
+                  function drawBasic5() {
                       var data = new google.visualization.DataTable();
                       data.addColumn('number', 'čas');
                       data.addColumn('number', 'teplota');
