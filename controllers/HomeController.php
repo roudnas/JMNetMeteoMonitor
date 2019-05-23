@@ -27,6 +27,10 @@
     $this->data['Vlhkost'] = $DnesManager->getCurrentVlhkost($this->staniceId);
     $this->data['posledniDobou'] = $DnesManager->getPosledniDobou($this->staniceId, $cas);
     $this->data['timeAndTemp'] = $DnesManager->getTodayTempAndTime($this->staniceId);
+    $this->data['extremy'] = $DnesManager->getExtremeByDay($this->staniceId);
+    $this->data['vitrTlak'] = $DnesManager->getCurrentVitrTlak($this->staniceId);
+    $_SESSION['staniceID'] = $this->staniceId;
+
     $this->pohled = 'uvod';
     if (!$this->data['posledniDobou']) {
       $this->addMessage("chyba");

@@ -1,6 +1,28 @@
-<div class="aktualne p-3">
-  <h1>aktualne vole</h1>
-  <div style="border:2px solid red" id="chart_div"></div>
-</div>
-<div id="chart_div">
+<?php
+    session_start();
+    $id = $_SESSION['staniceID'];
+    $con = ibase_connect('1.2.3.123:/var/lib/czf/jmnet.gdb','teplomer','remolpet');
+    $prep = ibase_prepare("select max(teplota)||'°C'maxTemp, min(teplota)||'°C'minTemp, avg(teplota)||'°C'avgTemp,
+    max(absvlhkost)||'%'maxHum, min(absvlhkost)||'%'minHum, avg(absvlhkost)||'%'avgHum
+    from (
+    select * from teplomer_data
+    where idcidlo = $id
+    and datum like '' || (select first 1
+    skip 0 substr(datum,1,11) from TEPLOMER_DATA
+    order by datum desc) ||'%'
+                              order by datum desc )");
+    $res = ibase_execute($prep);
+    $row = ibase_fetch_assoc($res);
+
+ ?>
+
+<div class="aktualne p-5">
+  <h1>Dnes</h1>
+  <div class="row justify-content-around py-3" style="font-size:0.7em;">
+    <h3>Teplota<br><hr> Min.: <?= $row['MINTEMP'] ?> Průměr.: <?= $row['AVGTEMP'] ?> Max.: <?= $row['MAXTEMP'] ?> </h3>
+    <h3>Vlhkost<br><hr> Min.: <?= $row['MINHUM'] ?> Průměr.: <?= $row['MINHUM'] ?> Max.: <?= $row['MINHUM'] ?> </h3>
+  </div>
+
+  <div class="mt-4" style="border:2px solid red" id="chart_div"></div>
+  <div class="mt-4" style="border:2px solid red" id="chart_div1"></div>
 </div>

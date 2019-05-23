@@ -27,6 +27,14 @@ footer {
   background-color: #E74C3C;
   color: #fff;
 }
+.greenRow {
+  background-color: #00a186;
+  color: #fff;
+}
+.orangeRow {
+  background-color: #efc26b;
+  color: #fff;
+}
 .statistika {
   border-bottom: 1px solid #ededed;
   font-size: 1.5em;
@@ -37,6 +45,7 @@ footer {
 .ajmenu {
     background: linear-gradient(to bottom, #ededed, #e9edf9);
   min-height: 60vh;
+      box-shadow: 0 20px 25px 0 rgba(66, 90, 165, 0.2);
 }
 
 .ajmenu a {
@@ -56,8 +65,8 @@ footer {
 }
 .ajmenu .nav-item .nav-link:hover {
  color: #adadad;
-
 }
+
 /*
 #aktualne {
   display: block;

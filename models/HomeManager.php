@@ -29,23 +29,28 @@
     }
 
     public function getCurrentVlhkost($id) {
-      return Db::singleQuery("select first 1 skip 0 absvlhkost, rosnybod from teplomer_data where idcidlo = $id order by id desc");
+      return Db::singleQuery("select first 1 skip 0 relvlhkost, rosnybod from teplomer_data where idcidlo = $id order by id desc");
     }
 
-    public function getMinTemp($id){
-      return Db::singleQuery("select min(teplota) from teplomer_data where datum like 'CURRENT_DATE, %' and id = $id group by id;");
+    public function getCurrentVitrTlak($id) {
+      return Db::singleQuery("select first 1 skip 0 rychlost, tlak from teplomer_data where idcidlo = $id order by datum desc");
     }
 
-    public function getAvgTemp($id){
-      return Db::singleQuery("select avg(teplota) from teplomer_data where datum like 'CURRENT_DATE, %' and id = $id group by id;");
-    }
-
-    public function getMaxTemp($id){
-      return Db::singleQuery("select max(teplota) from teplomer_data where datum like 'CURRENT_DATE, %' and id = $id group by id;");
+    public function getExtremeByDay($id) {
+      return Db::singleQueryNA("select max(teplota)||'°C'maxTemp, min(teplota)||'°C'minTemp, avg(teplota)||'°C'avgTemp,
+                                max(relvlhkost)||'%'maxHum, min(relvlhkost)||'%'minHum, avg(relvlhkost)||'%'avgHum
+                                from (
+                                select * from teplomer_data
+                                where idcidlo = $id
+                                and datum like '' || (select first 1
+                                skip 0 substr(datum,1,11) from TEPLOMER_DATA
+                                order by datum desc) ||'%'
+                                order by datum desc )
+                                ");
     }
 
     public function getPosledniDobou($id, $cas) {
-    return Db::multiQuery("select first 5 skip 0 substr(datum,9,10) || '.' ||substr(datum,6,7) || '.' || substr(datum,1,4) as CAS, TEPLOTA, ABSVLHKOST  from teplomer_data
+    return Db::multiQuery("select first 5 skip 0 substr(datum,9,10) || '.' ||substr(datum,6,7) || '.' || substr(datum,1,4) as CAS, TEPLOTA, relvlhkost  from teplomer_data
                             where idcidlo = $id
                             and datum like '%$cas%'
                             order by datum desc");
