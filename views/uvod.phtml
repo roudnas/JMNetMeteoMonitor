@@ -70,6 +70,7 @@
           document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
         }
           document.getElementById("ajoutput").innerHTML = this.responseText;
+          //Graf aktualne 1.1
           google.charts.load('current', {'packages':['line']});
           google.charts.setOnLoadCallback(drawChart);
           google.charts.setOnLoadCallback(drawChart1);
@@ -104,6 +105,9 @@
               chart.draw(data, google.charts.Line.convertOptions(options));
             }
           }
+          //Graf aktualne 1.1 KONEC
+
+          //Graf aktualne 2.1
           function drawChart1() {
           google.charts.load('current', {'packages':['line']});
           google.charts.setOnLoadCallback(drawBasic1);
@@ -132,6 +136,8 @@
           }
       }
   };
+  //Graf aktualne 2.1 KONEC
+
   xmlhttp.open("GET","views/home/aktualne.phtml",true);
   xmlhttp.send();
 
@@ -148,6 +154,7 @@
               }
                 document.getElementById("ajoutput").innerHTML = this.responseText;
                 if (str == "aktualne") {
+                  //Graf aktualne 1.2
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawChart);
                   google.charts.setOnLoadCallback(drawChart1);
@@ -177,6 +184,8 @@
                       chart.draw(data, options);
                     }
                   }
+                  //Graf aktualne 1.2 KONEC
+
                   function drawChart1() {
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawBasic1);
@@ -203,7 +212,9 @@
                       chart.draw(data, options);
                     }
                   }
+                  //Graf aktualne 2.2 KONEC
                 } else if (str == "dennisouhrn") {
+                  //Graf denni 1
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawChart3);
                   function drawChart3() {
@@ -232,8 +243,9 @@
                       chart.draw(data, options);
                     }
                   }
-
+                  //Graf denni 1 KONEC
                 } else if (str == "mesicnisouhrn") {
+                  //Graf mesicni 1
                   google.charts.load('current', {'packages':['line']});
                   google.charts.setOnLoadCallback(drawChart3);
                   function drawChart3() {
@@ -267,6 +279,7 @@
 
             }
         };
+        //Graf mesicni 1 KONEC
         xmlhttp.open("GET","views/home/" + str + ".phtml",true);
         xmlhttp.send();
     }
