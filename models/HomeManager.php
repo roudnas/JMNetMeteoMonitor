@@ -101,6 +101,17 @@
                               order by datum asc");
     }
 
+    public function getRocniSouhrn($id){
+      return Db::multiQuery("select distinct substr(datum,1,7) DATUM, avg(teplota) TEPLOTA,
+                            avg(rychlost) RYCHLOST,
+                            avg(relvlhkost) VLHKOST
+                            from teplomer_data
+                            where datum  > dateadd(-1 year to current_date)
+                            and idcidlo = 3710
+                            group by datum
+                            order by datum asc;");
+    }
+
   }
 
 ?>

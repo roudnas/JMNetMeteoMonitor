@@ -1,5 +1,58 @@
+<?php
+
+  session_start();
+  $con =  ibase_connect("1.2.3.123:/var/lib/czf/jmnet.gdb", 'teplomer', 'remolpet');
+  $id = $_SESSION['staniceID'];
+
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(teplota) TEPLOTA
+                        from teplomer_data
+                        where datum  > dateadd(-1 year to current_date)
+                        and idcidlo = $id
+                        group by datum
+                        order by datum desc");
+  $rokTeplota = ibase_execute($prep);
+
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(rychlost) RYCHLOST
+                        from teplomer_data
+                        where datum  > dateadd(-1 year to current_date)
+                        and idcidlo = $id
+                        group by datum
+                        order by datum desc");
+  $rokRychlost = ibase_execute($prep);
+
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(relvlhkost) VLHKOST
+                        from teplomer_data
+                        where datum  > dateadd(-1 year to current_date)
+                        and idcidlo = $id
+                        group by datum
+                        order by datum desc");
+  $rokVlhkost = ibase_execute($prep);
+
+ ?>
+
+
 <div class="mesicnisouhrn p-5">
   <div class="charts" style="border:2px solid #425aa5; background-color:#fff;" id="chart_mesicni"></div>
-  <h1>Josef</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+    <h4 class="blueRow p-2">Teplota za poslední měsíce</h4>
+    <?php while($row = ibase_fetch_object($rokTeplota)) : ?>
+      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->TEPLOTA ?>°C
+    <?php endwhile ?>
+  </div>
+
+  <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+    <h4 class="blueRow p-2">Rychlost větru za poslední měsíce</h4>
+    <?php while($row = ibase_fetch_object($rokRychlost)) : ?>
+      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->RYCHLOST ?>°C
+    <?php endwhile ?>
+  </div>
+
+  <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+    <h4 class="blueRow p-2">Vlhkost za poslední měsíce</h4>
+    <?php while($row = ibase_fetch_object($rokVlhkost)) : ?>
+      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->VLHKOST ?>°C
+    <?php endwhile ?>
+  </div>
+
 </div>
