@@ -30,6 +30,7 @@
     $this->data['getHumidity'] = $DnesManager->getHumidity($this->staniceId);
     $this->data['getHumidity2'] = $DnesManager->getHumidity($this->staniceId);
     $this->data['getLast3DaysTimeTemp'] = $DnesManager->getLast3DaysTimeTemp($this->staniceId);
+    $this->data['getLast3DaysTimeTemp2'] = $DnesManager->getLast3DaysTimeTemp($this->staniceId);
     $_SESSION['staniceID'] = $this->staniceId;
 
 

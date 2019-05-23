@@ -249,7 +249,7 @@
                       data.addColumn('number', 'Rosný bod');
 
                       data.addRows([
-                        <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp)) : ?>
+                        <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp2)) : ?>
                           [new Date(<?=$dG->ROK?>,<?=$dG->MESIC?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
                         <?php endwhile ?>
                       ]);
