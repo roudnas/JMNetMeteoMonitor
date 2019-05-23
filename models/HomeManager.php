@@ -93,6 +93,14 @@
                             order by datum asc;");
     }
 
+    public function getMesicniSouhrn($id) {
+      return Db::multiQuery("select distinct substr(datum,1,11) datum, avg(teplota)AVGTEMP,avg(rychlost)AVGRYCHLOST, avg(rosnybod)AVGRB, avg(relvlhkost)AVGVLHKOST   from teplomer_data
+                              where datum  > dateadd(-1 month to current_date)
+                              and idcidlo = $id
+                              group by datum
+                              order by datum asc");
+    }
+
 
 //    select '['||substr(datum,1,11)||','||teplota ||','|| rychlost ||','|| rosnybod ||']' as DATA from teplomer_data
 //                                    where idcidlo = 3710

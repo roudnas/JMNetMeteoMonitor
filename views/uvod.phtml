@@ -342,11 +342,21 @@
 
                   function drawBasic4() {
                       var data = new google.visualization.DataTable();
-                      data.addColumn('number', 'čas');
-                      data.addColumn('number', 'teplota');
+                      data.addColumn('date', 'datum');
+                      data.addColumn('number', 'Teplota');
+                      data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Rosný bod');
+                      data.addColumn('number', 'Vlhkost');
 
                       data.addRows([
-                          [0,1],[0,2]
+                          <?php while($gD = ibase_fetch_object($mesicniSouhrn)) : ?>
+                          <?php $date = $gD->DATUM;
+                              $dateY = substr($date, 0,4);
+                              $dateM = substr($date, 5,2);
+                              $dateD = substr($date, 8,2);
+                           ?>
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGRB ?>,<?= $gD->AVGVLHKOST ?>],
+                          <?php endwhile ?>
                     ]);
 
                       var options = {
