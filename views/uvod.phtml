@@ -65,6 +65,7 @@
               data.addColumn('number', 'čas');
               data.addColumn('number', 'Teplota');
               data.addColumn('number', 'Rychlost větru');
+              data.addColumn('number', 'Rosný bod');
 
               data.addRows([
                   <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp)) : ?>
@@ -110,16 +111,51 @@
                   title: 'Čas'
                 },
                 vAxis: {
-                  title: 'Vlhkost'
+                  title: 'Hodnota'
                 }
               };
               var chart = new google.charts.Line(document.getElementById('chart_aktualne1'));
               chart.draw(data, options);
             }
           }
+          //Graf aktualne 2.1 KONEC
+
+          //Graf 3 dny
+          google.charts.load('current', {'packages':['line']});
+          google.charts.setOnLoadCallback(drawChart_3Dny);
+          function drawChart3Dny() {
+          google.charts.load('current', {'packages':['line']});
+          google.charts.setOnLoadCallback(drawBasic3Dny);
+          function drawBasic3Dny() {
+              var data = new google.visualization.DataTable();
+              data.addColumn('number', 'čas');
+              data.addColumn('number', 'Teplota');
+              data.addColumn('number', 'Rychlost větru');
+              data.addColumn('number', 'Rosný bod');
+
+              data.addRows([
+                <?php while($dataGraf = ibase_fetch_object($getLast3DaysTimeTemp)) : ?>
+                  <?=  $dataGraf->DATA ?>,
+                <?php endwhile ?>
+              ]);
+
+              var options = {
+                'title': 'Poslední 3 dny',
+                'curveType': 'function',
+                hAxis: {
+                  title: 'Čas'
+                },
+                vAxis: {
+                  title: 'Hodnota'
+                }
+              };
+              var chart = new google.charts.Line(document.getElementById('chart_3dny'));
+              chart.draw(data, google.charts.Line.convertOptions(options));
+            }
+          }
+
       }
   };
-  //Graf aktualne 2.1 KONEC
 
   xmlhttp.open("GET","views/home/aktualne.phtml",true);
   xmlhttp.send();
@@ -148,6 +184,7 @@
                       data.addColumn('number', 'čas');
                       data.addColumn('number', 'Teplota');
                       data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Rosný bod');
 
                       data.addRows([
                         <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp2)) : ?>
@@ -187,7 +224,7 @@
                       ]);
 
                       var options = {
-                        'title' :'How Much Pizza I Ate Last Night',
+                        'title' :'Vlhkost',
                         hAxis: {
                           title: 'Čas'
                         },
