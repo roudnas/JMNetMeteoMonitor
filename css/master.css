@@ -60,24 +60,10 @@ footer {
  cursor: pointer;
 }
 .ajmenu .nav-item .nav-link {
+  min-height: 7vh;
  color: #fff;
-
+ transition: all 0.3s ease-out;
 }
 .ajmenu .nav-item .nav-link:hover {
- color: #adadad;
+ background-color: #adadad;
 }
-
-/*
-#aktualne {
-  display: block;
-}
-#dennisouhrn {
-  display: none;
-}
-#mesicnisouhrn {
-  display: none;
-}
-#rokysouhrn {
-  display: none;
-}
-*/
