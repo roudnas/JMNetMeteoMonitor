@@ -18,18 +18,21 @@ xmlhttp.onreadystatechange = function() {
         function drawBasic() {
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'čas');
-            data.addColumn('number', 'teplota');
+            data.addColumn('number', 'Teplota');
+            data.addColumn('number', 'Vlhkost');
+            data.addColumn('number', 'Rychlost větru');
 
             data.addRows([
-                [0,1],[1,2]
+                [0,1,3,2],[1,2,4,8]
             ]);
 
             var options = {
+              'title': 'Posledních 24 hodin',
               hAxis: {
                 title: 'Čas'
               },
               vAxis: {
-                title: 'Teplota'
+                title: 'Hodnota'
               }
             };
             var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -50,11 +53,12 @@ xmlhttp.onreadystatechange = function() {
             ]);
 
             var options = {
+              'title':'Poslední 3 dny',
               hAxis: {
                 title: 'Čas'
               },
               vAxis: {
-                title: 'Teplota'
+                title: 'Hodnota'
               }
             };
             var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
@@ -78,59 +82,94 @@ function clickAjHandler(str) {
               document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
             }
               document.getElementById("ajoutput").innerHTML = this.responseText;
-              google.charts.load('current', {'packages':['line']});
-              google.charts.setOnLoadCallback(drawChart);
-              google.charts.setOnLoadCallback(drawChart1);
-              function drawChart() {
-              google.charts.load('current', {packages: ['corechart', 'line']});
-              google.charts.setOnLoadCallback(drawBasic);
+              if (str == "aktualne") {
+                google.charts.load('current', {'packages':['line']});
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChart1);
+                function drawChart() {
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawBasic);
 
-              function drawBasic() {
-                  var data = new google.visualization.DataTable();
-                  data.addColumn('number', 'čas');
-                  data.addColumn('number', 'teplota');
+                function drawBasic() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'čas');
+                    data.addColumn('number', 'teplota');
 
-                  data.addRows([
-                    [0,1],[1,2]
-                  ]);
+                    data.addRows([
+                      [0,1],[1,2]
+                    ]);
 
-                  var options = {
-                    hAxis: {
-                      title: 'Čas'
-                    },
-                    vAxis: {
-                      title: 'Teplota'
-                    }
-                  };
-                  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                  chart.draw(data, options);
+                    var options = {
+                      'title':'How Much Pizza I Ate Last Night',
+                      hAxis: {
+                        title: 'Čas'
+                      },
+                      vAxis: {
+                        title: 'Hodnota'
+                      }
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                  }
                 }
-              }
-              function drawChart1() {
-              google.charts.load('current', {packages: ['corechart', 'line']});
-              google.charts.setOnLoadCallback(drawBasic1);
+                function drawChart1() {
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawBasic1);
 
-              function drawBasic1() {
-                  var data = new google.visualization.DataTable();
-                  data.addColumn('number', 'čas');
-                  data.addColumn('number', 'teplota');
+                function drawBasic1() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'čas');
+                    data.addColumn('number', 'teplota');
 
-                  data.addRows([
-                    [0,1],[1,2]
-                  ]);
+                    data.addRows([
+                      [0,1],[1,2]
+                    ]);
 
-                  var options = {
-                    hAxis: {
-                      title: 'Čas'
-                    },
-                    vAxis: {
-                      title: 'Teplota'
-                    }
-                  };
-                  var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
-                  chart.draw(data, options);
+                    var options = {
+                      'title':'How Much Pizza I Ate Last Night',
+                      hAxis: {
+                        title: 'Čas'
+                      },
+                      vAxis: {
+                        title: 'Hodnota'
+                      }
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
+                    chart.draw(data, options);
+                  }
                 }
+              } else if (str == "dennisouhrn") {
+                google.charts.load('current', {'packages':['line']});
+                google.charts.setOnLoadCallback(drawChart3);
+                function drawChart3() {
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawBasic3);
+
+                function drawBasic3() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'čas');
+                    data.addColumn('number', 'teplota');
+
+                    data.addRows([
+                      [0,1],[1,2]
+                    ]);
+
+                    var options = {
+                      'title':'How Much Pizza I Ate Last Night',
+                      hAxis: {
+                        title: 'Čas'
+                      },
+                      vAxis: {
+                        title: 'Hodnota'
+                      }
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_denni'));
+                    chart.draw(data, options);
+                  }
+                }
+
               }
+
           }
       };
       xmlhttp.open("GET","views/home/" + str + ".phtml",true);
