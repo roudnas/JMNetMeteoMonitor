@@ -94,7 +94,15 @@
     }
 
     public function getMesicniSouhrn($id) {
-      return Db::multiQuery("select distinct substr(datum,1,11) datum, avg(teplota)AVGTEMP,avg(rychlost)AVGRYCHLOST,avg(NARAZY)AVGNARAZY, avg(rosnybod)AVGRB, avg(relvlhkost)AVGVLHKOST   from teplomer_data
+      return Db::multiQuery("select distinct substr(datum,1,11) datum, avg(teplota)AVGTEMP,avg(rychlost)AVGRYCHLOST,avg(NARAZY)AVGNARAZY, avg(rosnybod)AVGRB from teplomer_data
+                              where datum  > dateadd(-1 month to current_date)
+                              and idcidlo = $id
+                              group by datum
+                              order by datum asc");
+    }
+
+    public function getMesicniSouhrnVlhkost($id) {
+      return Db::multiQuery("select distinct substr(datum,1,11) DATUM, avg(relvlhkost) VLHKOST from teplomer_data
                               where datum  > dateadd(-1 month to current_date)
                               and idcidlo = $id
                               group by datum

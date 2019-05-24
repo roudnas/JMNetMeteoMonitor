@@ -354,7 +354,6 @@ setInterval('checkDolniData()',60000);
                       data.addColumn('number', 'Rychlost větru');
                       data.addColumn('number', 'Nárazová rychlost větru');
                       data.addColumn('number', 'Rosný bod');
-                      data.addColumn('number', 'Vlhkost');
 
                       data.addRows([
                           <?php while($gD = ibase_fetch_object($mesicniSouhrn)) : ?>
@@ -363,7 +362,7 @@ setInterval('checkDolniData()',60000);
                               $dateM = substr($date, 5,2);
                               $dateD = substr($date, 8,2);
                            ?>
-                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGNARAZY ?>,<?= $gD->AVGRB ?>,<?= $gD->AVGVLHKOST ?>],
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGNARAZY ?>,<?= $gD->AVGRB ?>],
                           <?php endwhile ?>
                     ]);
 
@@ -373,13 +372,51 @@ setInterval('checkDolniData()',60000);
                           title: 'Čas'
                         },
                         vAxis: {
-                          title: 'Teplota'
+                          title: 'Hodnota'
                         }
                       };
                       var chart = new google.charts.Line(document.getElementById('chart_denni'));
                       chart.draw(data, options);
                     }
                   }
+
+                  //Graf denni vlhkost
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawChartDenniVlhkost);
+                  function drawChartDenniVlhkost() {
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawBasicDenniVlhkost);
+
+                  function drawBasicDenniVlhkost() {
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('date', 'datum');
+                      data.addColumn('number', 'Vlhkost');
+
+                      data.addRows([
+                          <?php while($gD = ibase_fetch_object($mesicniSouhrnVlhkost)) : ?>
+                          <?php $date = $gD->DATUM;
+                              $dateY = substr($date, 0,4);
+                              $dateM = substr($date, 5,2);
+                              $dateD = substr($date, 8,2);
+                           ?>
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->VLHKOST ?>],
+                          <?php endwhile ?>
+                    ]);
+
+                      var options = {
+                        'title':'Denní souhrn vlhkosti',
+                        hAxis: {
+                          title: 'Čas'
+                        },
+                        vAxis: {
+                          title: 'Hodnota'
+                        }
+                      };
+                      var chart = new google.charts.Line(document.getElementById('chart_denniVlhkost'));
+                      chart.draw(data, options);
+                    }
+                  }
+
                   //Graf denni 1 KONEC
                 } else if (str == "mesicnisouhrn") {
                   //Graf mesicni 1
