@@ -7,7 +7,7 @@
   $prep = ibase_prepare("select substr(datum,1,4) ROKY, min(teplota) MINTEPLOTA, avg(teplota) AVGTEPLOTA, max(teplota) MAXTEPLOTA from TEPLOMER_DATA
                           where substr(datum,1,4) >= (select first 1 skip 0 distinct substr(datum,1,4)rok from
                           TEPLOMER_DATA
-                          where idcidlo = 3710
+                          where idcidlo = $id
                           order by rok asc)
                           and idcidlo = $id
                           group by ROKY;");
@@ -16,7 +16,7 @@
   $prep = ibase_prepare("select substr(datum,1,4) ROKY, min(relvlhkost) MINVLHKOST, avg(relvlhkost) AVGVLHKOST, max(relvlhkost) MAXVLHKOST from TEPLOMER_DATA
                           where substr(datum,1,4) >= (select first 1 skip 0 distinct substr(datum,1,4)rok from
                           TEPLOMER_DATA
-                          where idcidlo = 3710
+                          where idcidlo = $id
                           order by rok asc)
                           and idcidlo = $id
                           group by ROKY;");
