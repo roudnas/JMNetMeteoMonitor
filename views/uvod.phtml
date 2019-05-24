@@ -491,6 +491,81 @@ if (tabCHEC.value == "aktualneTab") {
                     }
                   }
 
+                } else if (str == "rocnisouhrn"){
+
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawChartRocni);
+                  function drawChartRocni() {
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawBasicRocni);
+
+                  function drawBasicRocni() {
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('date', 'čas');
+                      data.addColumn('number', 'Teplota');
+                      data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Nárazová rychlost')
+
+                      data.addRows([
+                        <?php while($gD = ibase_fetch_object($rocniSouhrn5)) : ?>
+                        <?php $date = $gD->DATUM;
+                            $dateY = substr($date, 0,4);
+                            $dateM = substr($date, 5,2);
+                         ?>
+                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>, <?= $gD->NARAZ ?>],
+                        <?php endwhile ?>
+                      ]);
+
+                      var options = {
+                        'title':'Roční souhrn',
+                        hAxis: {
+                          title: 'Čas'
+                        },
+                        vAxis: {
+                          title: 'Hodnota'
+                        }
+                      };
+                      var chart = new google.charts.Line(document.getElementById('rocniSouhrn'));
+                      chart.draw(data, options);
+                    }
+                  }
+
+                  //Rocni vlhkost
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawChartRocniVlhkost);
+                  function drawChartRocniVlhkost() {
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawBasicRocniVlhkost);
+
+                  function drawBasicRocniVlhkost() {
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('date', 'čas');
+                      data.addColumn('number', 'Vlhkost');
+
+                      data.addRows([
+                        <?php while($gD = ibase_fetch_object($getRocniSouhrnVlhkost5)) : ?>
+                        <?php $date = $gD->DATUM;
+                            $dateY = substr($date, 0,4);
+                            $dateM = substr($date, 5,2);
+                         ?>
+                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>), <?= $gD->VLHKOST ?>],
+                        <?php endwhile ?>
+                      ]);
+
+                      var options = {
+                        'title':'Roční souhrn vlhkosti',
+                        hAxis: {
+                          title: 'Čas'
+                        },
+                        vAxis: {
+                          title: 'Hodnota'
+                        }
+                      };
+                      var chart = new google.charts.Line(document.getElementById('rocniSouhrnVlhkost'));
+                      chart.draw(data, options);
+                    }
+                  }
+
                 }
 
             }

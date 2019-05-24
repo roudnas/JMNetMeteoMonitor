@@ -40,21 +40,8 @@
 
 <div class="rocnisouhrn p-5">
 
-  <div class="row justify-content-around">
-
-    <div class="infobox posledniDny text-center col-5 mt-3" style="font-size:0.75em">
-      <h4 class="blueRow p-2">Souhrn teplot během let</h4>
-      <?php while($row = ibase_fetch_object($rocniTeplota)) : ?>
-        <p class="statistika"><?= $row->ROKY ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINTEPLOTA ?>°C <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGTEPLOTA ?>°C <span style="color:#425aa5;">Max.:</span> <?= $row->MAXTEPLOTA ?>°C</p>
-      <?php endwhile ?>
-    </div>
-
-    <div class="infobox posledniDny text-center col-5 mt-3" style="font-size:0.75em">
-      <h4 class="blueRow p-2">Souhrn vlhkostí během let</h4>
-      <?php while($row = ibase_fetch_object($rocniVlhkost)) : ?>
-        <p class="statistika"><?= $row->ROKY ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINVLHKOST ?>% <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGVLHKOST ?>% <span style="color:#425aa5;">Max.:</span> <?= $row->MAXVLHKOST ?>%</p>
-      <?php endwhile ?>
-    </div>
+  <div class="charts p-3" style="background-color:#fff;" id="rocniSouhrn"></div>
+  <div class="charts p-3" style="background-color:#fff;" id="rocniSouhrnVlhkost"></div>
 
 </div>
 <?php while($row = ibase_fetch_object($rocniSouhrn)) : ?>
