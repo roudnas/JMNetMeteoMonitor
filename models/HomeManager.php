@@ -62,7 +62,7 @@
 
 
     public function getTimeAndTemp($id){
-      return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||','|| rosnybod ||']' as DATA from teplomer_data
+      return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||','|| narazy ||','|| rosnybod ||']' as DATA from teplomer_data
                                 where idcidlo = $id
                                 and datum like '' || (select first 1
                                 skip 0 substr(datum,1,11) from TEPLOMER_DATA
@@ -80,7 +80,7 @@
     }
 
     public function getLast3DaysTimeTemp($id){
-      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, TEPLOTA, RYCHLOST, ROSNYBOD
+      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, TEPLOTA, RYCHLOST,NARAZY, ROSNYBOD
                              from teplomer_data where
                             datum > dateadd(-3 day to current_date) and idcidlo = $id
                             order by datum asc;");
@@ -94,7 +94,7 @@
     }
 
     public function getMesicniSouhrn($id) {
-      return Db::multiQuery("select distinct substr(datum,1,11) datum, avg(teplota)AVGTEMP,avg(rychlost)AVGRYCHLOST, avg(rosnybod)AVGRB, avg(relvlhkost)AVGVLHKOST   from teplomer_data
+      return Db::multiQuery("select distinct substr(datum,1,11) datum, avg(teplota)AVGTEMP,avg(rychlost)AVGRYCHLOST,avg(NARAZY)AVGNARAZY, avg(rosnybod)AVGRB, avg(relvlhkost)AVGVLHKOST   from teplomer_data
                               where datum  > dateadd(-1 month to current_date)
                               and idcidlo = $id
                               group by datum

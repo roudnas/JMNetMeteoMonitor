@@ -32,27 +32,30 @@
 
 
 <div class="mesicnisouhrn p-5">
-  <div class="charts" style="border:2px solid #425aa5; background-color:#fff;" id="chart_mesicni"></div>
+  <div class="charts p-3" style="background-color:#fff;" id="chart_mesicni"></div>
+  <div class="row justify-content-around">
+    <div class="infobox posledniDny text-center col-5 mt-3 mx-auto" style="font-size:0.75em">
+      <h4 class="blueRow p-2">Teplota za poslední měsíce</h4>
+      <?php while($row = ibase_fetch_object($rokTeplota)) : ?>
+        <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->TEPLOTA ?>°C
+      <?php endwhile ?>
+    </div>
 
-  <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
-    <h4 class="blueRow p-2">Teplota za poslední měsíce</h4>
-    <?php while($row = ibase_fetch_object($rokTeplota)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->TEPLOTA ?>°C
-    <?php endwhile ?>
+    <div class="infobox posledniDny text-center col-5 mt-3 mx-auto" style="font-size:0.75em">
+      <h4 class="blueRow p-2">Rychlost větru za poslední měsíce</h4>
+      <?php while($row = ibase_fetch_object($rokRychlost)) : ?>
+        <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->RYCHLOST ?>°C
+      <?php endwhile ?>
+    </div>
+
+      <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
+        <h4 class="blueRow p-2">Vlhkost za poslední měsíce</h4>
+        <?php while($row = ibase_fetch_object($rokVlhkost)) : ?>
+          <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->VLHKOST ?>°C
+        <?php endwhile ?>
+      </div>
   </div>
 
-  <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
-    <h4 class="blueRow p-2">Rychlost větru za poslední měsíce</h4>
-    <?php while($row = ibase_fetch_object($rokRychlost)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->RYCHLOST ?>°C
-    <?php endwhile ?>
-  </div>
 
-  <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
-    <h4 class="blueRow p-2">Vlhkost za poslední měsíce</h4>
-    <?php while($row = ibase_fetch_object($rokVlhkost)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->VLHKOST ?>°C
-    <?php endwhile ?>
-  </div>
 
 </div>

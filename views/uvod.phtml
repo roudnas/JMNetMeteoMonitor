@@ -6,7 +6,7 @@
     <section class="ajmenu w-75 mx-auto">
       <ul class="nav nav-pills nav-fill bg-dark">
   <li class="nav-item" onClick="clickAjHandler(`aktualne`)">
-    <a class="nav-link pt-3 active">Aktuálně</a>
+    <a class="nav-link pt-3">Aktuálně</a>
   </li>
   <li class="nav-item" onClick="clickAjHandler(`dennisouhrn`)">
     <a class="nav-link pt-3">Denní souhrny</a>
@@ -66,6 +66,7 @@
               data.addColumn('number', 'čas');
               data.addColumn('number', 'Teplota');
               data.addColumn('number', 'Rychlost větru');
+              data.addColumn('number', 'Nárazová rychlost větru');
               data.addColumn('number', 'Rosný bod');
 
               data.addRows([
@@ -131,11 +132,12 @@
               data.addColumn('date', 'Datum');
               data.addColumn('number', 'Teplota');
               data.addColumn('number', 'Rychlost větru');
+              data.addColumn('number', 'Nárazová rychlost větru');
               data.addColumn('number', 'Rosný bod');
 
               data.addRows([
                 <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp)) : ?>
-                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
+                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->NARAZY?>,<?=$dG->ROSNYBOD?>],
                 <?php endwhile ?>
               ]);
 
@@ -217,6 +219,7 @@ setInterval('checkDolniData()',60000);
                       data.addColumn('number', 'čas');
                       data.addColumn('number', 'Teplota');
                       data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Nárazová rychlost větru');
                       data.addColumn('number', 'Rosný bod');
 
                       data.addRows([
@@ -280,11 +283,12 @@ setInterval('checkDolniData()',60000);
                       data.addColumn('date', 'Datum');
                       data.addColumn('number', 'Teplota');
                       data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Nárazová rychlost větru');
                       data.addColumn('number', 'Rosný bod');
 
                       data.addRows([
                         <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp2)) : ?>
-                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->ROSNYBOD?>],
+                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->NARAZY?>,<?=$dG->ROSNYBOD?>],
                         <?php endwhile ?>
                       ]);
 
@@ -348,6 +352,7 @@ setInterval('checkDolniData()',60000);
                       data.addColumn('date', 'datum');
                       data.addColumn('number', 'Teplota');
                       data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Nárazová rychlost větru');
                       data.addColumn('number', 'Rosný bod');
                       data.addColumn('number', 'Vlhkost');
 
@@ -358,7 +363,7 @@ setInterval('checkDolniData()',60000);
                               $dateM = substr($date, 5,2);
                               $dateD = substr($date, 8,2);
                            ?>
-                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGRB ?>,<?= $gD->AVGVLHKOST ?>],
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGNARAZY ?>,<?= $gD->AVGRB ?>,<?= $gD->AVGVLHKOST ?>],
                           <?php endwhile ?>
                     ]);
 

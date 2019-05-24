@@ -17,7 +17,6 @@ footer {
 }
 .infobox {
   background-color: #fff;
-  box-shadow: 0 20px 25px 0 rgba(66, 90, 165, 0.2);
 }
 .blueRow {
   background-color: #425aa5;
@@ -33,6 +32,10 @@ footer {
 }
 .orangeRow {
   background-color: #efc26b;
+  color: #fff;
+}
+.cyanRow {
+  background-color: rgb(0, 188, 212);
   color: #fff;
 }
 .statistika {
@@ -65,7 +68,8 @@ footer {
  transition: all 0.3s ease-out;
 }
 .ajmenu .nav-item .nav-link:hover {
- background-color: #adadad;
+ background-color: #fff;
+ color: #000;
 }
 .charts {
   width: 100%;

@@ -39,42 +39,45 @@
   $minTeplota = ibase_fetch_assoc($minTempEx);
 ?>
 
-<div class="infobox AktualniTeplota text-center  col-xl-3 col-lg-3 col-md-12">
-  <h3 class="p-1 blueRow">Dříve touto dobou</h3>
-  <?php while($row = ibase_fetch_object($posledniDobou)) : ?>
-      <p class="statistika"><?= $row->CAS ?> <?= $row->TEPLOTA?>&deg;C <?= $row->RELVLHKOST ?>%</p>
-  <?php endwhile  ?>
 
-</div>
+<div class="row col-12 justify-content-around">
+  <div class="infobox AktualniTeplota mt-1 text-center  col-xl-3 col-lg-3 col-md-10 col-sm-10 col-xs-10">
+    <h3 class="p-1 blueRow">Dříve touto dobou</h3>
+    <?php while($row = ibase_fetch_object($posledniDobou)) : ?>
+        <p class="statistika"><?= $row->CAS ?> <?= $row->TEPLOTA?>&deg;C <?= $row->RELVLHKOST ?>%</p>
+    <?php endwhile  ?>
 
-<div class="infobox AktualniTeplota p-5 text-center col-xl-5 col-lg-5 col-md-12" id="infoB-Aktual">
-  <div class="teplota">
-    <h2>Aktuální teplota: <?= $currData['TEPLOTA'] ?>&deg;C</h2>
-    <h4><?= $currData['DATUM'] ?></h4>
   </div>
-  <div class="row justify-content-center pt-3">
-    <div class="vlhkost d-flex align-items-center justify-content-center text-center blueRow col-5 mx-1">
-      <h2>Vlhkost: <?= $currData['RELVLHKOST'] ?>%</h2>
-    </div>
-    <div class="rosnybod d-flex align-items-center justify-content-center text-center redRow col-5">
-      <h2>Rosný bod: <?= $currData['ROSNYBOD'] ?>&deg;C</h2>
-    </div>
-  </div>
-  <div class="row justify-content-center pt-3">
-    <div class="Vitr d-flex align-items-center justify-content-center text-center greenRow col-5 mx-1">
-      <h2>Vítr: <?= $currData['RYCHLOST'] ?>km/h</h2>
-    </div>
-    <div class="Tlak d-flex align-items-center justify-content-center text-center orangeRow col-5">
-      <h2>Tlak: <?= $currData['TLAK'] ?>hPa</h2>
-    </div>
-  </div>
-</div>
 
-<div class="infobox AktualniTeplota text-center col-xl-3 col-lg-3 col-md-12">
-        <h3 class="p-1 blueRow">Statistiky</h3>
-        <p class="statistika">Název čidla: <?= $jmenoCidla['JMENO'] ?></p>
-        <p class="statistika">Počet měření: <?= $pocetMereni[0] ?></p>
-        <p class="statistika">První měření: <?= $prvniMer[0] ?></p>
-        <p class="statistika">Maximální teplota: <?= $maxTeplota['TEPLOTA'] ?>&deg;C</p>
-        <p class="statistika">Minimální teplota: <?= $minTeplota['TEPLOTA'] ?>&deg;C</p>
+  <div class="infobox AktualniTeplota mt-1 p-5 text-center col-xl-5 col-lg-5 col-md-10 col-sm-10 col-xs-10" id="infoB-Aktual">
+    <div class="teplota blueRow p-2">
+      <h2>Aktuální teplota: <?= $currData['TEPLOTA'] ?>&deg;C</h2>
+      <h4><?= $currData['DATUM'] ?></h4>
+    </div>
+    <div class="row justify-content-center pt-3">
+      <div class="vlhkost d-flex align-items-center justify-content-center text-center cyanRow col-5 mx-1">
+        <h2>Vlhkost: <?= $currData['RELVLHKOST'] ?>%</h2>
+      </div>
+      <div class="rosnybod d-flex align-items-center justify-content-center text-center redRow col-5">
+        <h2>Rosný bod: <?= $currData['ROSNYBOD'] ?>&deg;C</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center pt-3">
+      <div class="Vitr p-2 d-flex align-items-center justify-content-center text-center greenRow col-5 mx-1">
+        <h2>Vítr: <?= $currData['RYCHLOST'] ?>km/h</h2>
+      </div>
+      <div class="Tlak p-2 d-flex align-items-center justify-content-center text-center orangeRow col-5">
+        <h2>Tlak: <?= $currData['TLAK'] ?>hPa</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="infobox AktualniTeplota mt-1 text-center col-xl-3 col-lg-3 col-md-10 col-sm-10 col-xs-10">
+          <h3 class="p-1 blueRow">Statistiky</h3>
+          <p class="statistika">Název čidla: <?= $jmenoCidla['JMENO'] ?></p>
+          <p class="statistika">Počet měření: <?= $pocetMereni[0] ?></p>
+          <p class="statistika">První měření: <?= $prvniMer[0] ?></p>
+          <p class="statistika">Maximální teplota: <?= $maxTeplota['TEPLOTA'] ?>&deg;C</p>
+          <p class="statistika">Minimální teplota: <?= $minTeplota['TEPLOTA'] ?>&deg;C</p>
+  </div>
 </div>
