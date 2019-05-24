@@ -107,7 +107,7 @@
                             avg(relvlhkost) VLHKOST
                             from teplomer_data
                             where datum  > dateadd(-1 year to current_date)
-                            and idcidlo = 3710
+                            and idcidlo = $id
                             group by datum
                             order by datum asc;");
     }

@@ -384,18 +384,26 @@ setInterval('checkDolniData()',60000);
                 } else if (str == "mesicnisouhrn") {
                   //Graf mesicni 1
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChart5);
-                  function drawChart5() {
+                  google.charts.setOnLoadCallback(drawChartMesicni);
+                  function drawChartMesicni() {
                   google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic5);
+                  google.charts.setOnLoadCallback(drawBasicMesicni);
 
-                  function drawBasic5() {
+                  function drawBasicMesicni() {
                       var data = new google.visualization.DataTable();
-                      data.addColumn('number', 'čas');
-                      data.addColumn('number', 'teplota');
+                      data.addColumn('date', 'čas');
+                      data.addColumn('number', 'Teplota');
+                      data.addColumn('number', 'Rychlost větru');
+                      data.addColumn('number', 'Vlhkost');
 
                       data.addRows([
-                        [0,1],[1,2]
+                        <?php while($gD = ibase_fetch_object($rocniSouhrn)) : ?>
+                        <?php $date = $gD->DATUM;
+                            $dateY = substr($date, 0,4);
+                            $dateM = substr($date, 5,2);
+                         ?>
+                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>,<?= $gD->VLHKOST ?>],
+                        <?php endwhile ?>
                       ]);
 
                       var options = {

@@ -4,7 +4,8 @@
   $con =  ibase_connect("1.2.3.123:/var/lib/czf/jmnet.gdb", 'teplomer', 'remolpet');
   $id = $_SESSION['staniceID'];
 
-  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(teplota) TEPLOTA
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(teplota) MINTEPLOTA, avg(teplota) AVGTEPLOTA,
+                        max(teplota) MAXTEPLOTA
                         from teplomer_data
                         where datum  > dateadd(-1 year to current_date)
                         and idcidlo = $id
@@ -12,7 +13,8 @@
                         order by datum desc");
   $rokTeplota = ibase_execute($prep);
 
-  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(rychlost) RYCHLOST
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(rychlost) MINRYCHLOST, avg(rychlost) AVGRYCHLOST,
+                        max(rychlost) MAXRYCHLOST
                         from teplomer_data
                         where datum  > dateadd(-1 year to current_date)
                         and idcidlo = $id
@@ -20,7 +22,8 @@
                         order by datum desc");
   $rokRychlost = ibase_execute($prep);
 
-  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(relvlhkost) VLHKOST
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(relvlhkost) MINVLHKOST, avg(relvlhkost) AVGVLHKOST,
+                        max(relvlhkost) MAXVLHKOST
                         from teplomer_data
                         where datum  > dateadd(-1 year to current_date)
                         and idcidlo = $id
