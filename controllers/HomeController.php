@@ -28,6 +28,8 @@
     $this->data['mesicniSouhrnVlhkost'] = $DnesManager->getMesicniSouhrnVlhkost($this->staniceId);
     $this->data['rocniSouhrn'] = $DnesManager->getRocniSouhrn($this->staniceId, 1);
     $this->data['getRocniSouhrnVlhkost'] = $DnesManager->getRocniSouhrnVlhkost($this->staniceId, 1);
+    $this->data['rocniSouhrn5'] = $DnesManager->getRocniSouhrn($this->staniceId, 5);
+    $this->data['getRocniSouhrnVlhkost5'] = $DnesManager->getRocniSouhrnVlhkost($this->staniceId, 5);
     $_SESSION['staniceID'] = $this->staniceId;
 
 
