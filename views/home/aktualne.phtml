@@ -21,8 +21,6 @@
   <?php if($row['MINTEMP']) : ?>
   <h1 style="color:#425aa5;">Dnes</h1>
   <div class="row justify-content-around py-3" style="font-size:0.7em;">
-
-
       <h3 class="col-6">Teplota</h3>
       <h3 class="col-6">Vlhkost</h3>
       <div class="teplotaData col-6">
@@ -37,11 +35,9 @@
       <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINRYCHLOST'] ?> | <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGRYCHLOST'] ?> | <span style="color:#425aa5;">Max.: </span><?= $row['MAXRYCHLOST'] ?></h4>
     </div>
 
-
       <div class="narazData col-6">
       <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINNARAZY'] ?> | <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGNARAZY'] ?> | <span style="color:#425aa5;">Max.: </span><?= $row['MAXNARAZY'] ?>
       </h4></div>
-
   </div>
 
   <div class="mt-4 p-3 charts" style="background-color:#fff;" id="chart_aktualne"></div>
