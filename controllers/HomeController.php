@@ -26,8 +26,8 @@
     $this->data['getLast3DaysHumidity2'] = $DnesManager->getLast3DaysHumidity($this->staniceId);
     $this->data['mesicniSouhrn'] = $DnesManager->getMesicniSouhrn($this->staniceId);
     $this->data['mesicniSouhrnVlhkost'] = $DnesManager->getMesicniSouhrnVlhkost($this->staniceId);
-    $this->data['rocniSouhrn'] = $DnesManager->getRocniSouhrn($this->staniceId);
-    $this->data['getRocniSouhrnVlhkost'] = $DnesManager->getRocniSouhrnVlhkost($this->staniceId);
+    $this->data['rocniSouhrn'] = $DnesManager->getRocniSouhrn($this->staniceId, 1);
+    $this->data['getRocniSouhrnVlhkost'] = $DnesManager->getRocniSouhrnVlhkost($this->staniceId, 1);
     $_SESSION['staniceID'] = $this->staniceId;
 
 

@@ -68,21 +68,21 @@
                               order by datum asc");
     }
 
-    public function getRocniSouhrn($id){
+    public function getRocniSouhrn($id, $let){
       return Db::multiQuery("select distinct substr(datum,1,7) DATUM, avg(teplota) TEPLOTA,
                             avg(rychlost) RYCHLOST,
                             avg(narazy) NARAZ
                             from teplomer_data
-                            where datum  > dateadd(-1 year to current_date)
+                            where datum  > dateadd(-$let year to current_date)
                             and idcidlo = $id
                             group by datum
                             order by datum asc;");
     }
 
-    public function getRocniSouhrnVlhkost($id){
+    public function getRocniSouhrnVlhkost($id, $let){
       return Db::multiQuery("select distinct substr(datum,1,7) DATUM, avg(relvlhkost) VLHKOST
                             from teplomer_data
-                            where datum  > dateadd(-1 year to current_date)
+                            where datum  > dateadd(-$let year to current_date)
                             and idcidlo = $id
                             group by datum
                             order by datum asc;");
