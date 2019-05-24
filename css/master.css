@@ -76,6 +76,10 @@ footer {
  color: #fff;
  transition: all 0.3s ease-out;
 }
+.ajmenu .nav-item .active {
+  background-color: #fff !important;
+ color: #000 !important;
+}
 .ajmenu .nav-item .nav-link:hover {
  background-color: #fff;
  color: #000;

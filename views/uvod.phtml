@@ -6,16 +6,16 @@
     <section class="ajmenu w-75 mx-auto">
       <ul class="nav nav-pills nav-fill bg-dark">
   <li class="nav-item" onClick="clickAjHandler(`aktualne`)">
-    <a class="nav-link pt-3">Aktuálně</a>
+    <a id="navLinkAjAktualne" class="nav-link pt-3">Aktuálně</a>
   </li>
   <li class="nav-item" onClick="clickAjHandler(`dennisouhrn`)">
-    <a class="nav-link pt-3">Denní souhrny</a>
+    <a id="navLinkAjDenni" class="nav-link pt-3">Denní souhrny</a>
   </li>
   <li class="nav-item" onClick="clickAjHandler(`mesicnisouhrn`)">
-    <a class="nav-link pt-3">Měsíční souhrny</a>
+    <a id="navLinkAjMesicni" class="nav-link pt-3">Měsíční souhrny</a>
   </li>
   <li class="nav-item" onClick="clickAjHandler(`rocnisouhrn`)">
-    <a class="nav-link pt-3">Roční souhrny</a>
+    <a id="navLinkAjRocni" class="nav-link pt-3">Roční souhrny</a>
   </li>
   </ul>
     <div id="ajoutput"><img class="mt-5" style="position:relative;left:50%;" src='images/loading.gif'></div>
@@ -191,9 +191,11 @@
   xmlhttp.send();
 }
 checkDolniDataOnLoad();
-if (tabCHECK.value == "aktualneTab") {
-  setInterval('checkDolniDataOnLoad()',60000);
-}
+setTimeout(function() {
+  if (tabCHECK.value == "aktualneTab") {
+    setInterval('checkDolniDataOnLoad()',60000);
+},3000)
+
 
   function clickAjHandler(str) {
         if (window.XMLHttpRequest) {
