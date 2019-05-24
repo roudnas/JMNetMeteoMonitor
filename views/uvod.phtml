@@ -394,7 +394,7 @@ setInterval('checkDolniData()',60000);
                       data.addColumn('date', 'čas');
                       data.addColumn('number', 'Teplota');
                       data.addColumn('number', 'Rychlost větru');
-                      data.addColumn('number', 'Vlhkost');
+                      data.addColumn('number', 'Nárazová rychlost')
 
                       data.addRows([
                         <?php while($gD = ibase_fetch_object($rocniSouhrn)) : ?>
@@ -402,12 +402,12 @@ setInterval('checkDolniData()',60000);
                             $dateY = substr($date, 0,4);
                             $dateM = substr($date, 5,2);
                          ?>
-                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>,<?= $gD->VLHKOST ?>],
+                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>, <?= $gD->NARAZ ?>],
                         <?php endwhile ?>
                       ]);
 
                       var options = {
-                        'title':'How Much Pizza I Ate Last Night',
+                        'title':'Roční souhrn',
                         hAxis: {
                           title: 'Čas'
                         },
@@ -416,6 +416,42 @@ setInterval('checkDolniData()',60000);
                         }
                       };
                       var chart = new google.charts.Line(document.getElementById('chart_mesicni'));
+                      chart.draw(data, options);
+                    }
+                  }
+
+                  //Graf mesnicni vlhkosti
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawChartMesicniVlhkost);
+                  function drawChartMesicniVlhkost() {
+                  google.charts.load('current', {'packages':['line']});
+                  google.charts.setOnLoadCallback(drawBasicMesicniVlhkost);
+
+                  function drawBasicMesicniVlhkost() {
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('date', 'čas');
+                      data.addColumn('number', 'Vlhkost');
+
+                      data.addRows([
+                        <?php while($gD = ibase_fetch_object($getRocniSouhrnVlhkost)) : ?>
+                        <?php $date = $gD->DATUM;
+                            $dateY = substr($date, 0,4);
+                            $dateM = substr($date, 5,2);
+                         ?>
+                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->VLHKOST ?>],
+                        <?php endwhile ?>
+                      ]);
+
+                      var options = {
+                        'title':'Roční souhrn',
+                        hAxis: {
+                          title: 'Čas'
+                        },
+                        vAxis: {
+                          title: 'Hodnota'
+                        }
+                      };
+                      var chart = new google.charts.Line(document.getElementById('chart_mesicniVlhkost'));
                       chart.draw(data, options);
                     }
                   }
