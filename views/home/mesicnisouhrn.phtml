@@ -4,7 +4,8 @@
   $con =  ibase_connect("1.2.3.123:/var/lib/czf/jmnet.gdb", 'teplomer', 'remolpet');
   $id = $_SESSION['staniceID'];
 
-  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(teplota) TEPLOTA
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(teplota) MINTEPLOTA, avg(teplota) AVGTEPLOTA,
+                        max(teplota) MAXTEPLOTA
                         from teplomer_data
                         where datum  > dateadd(-1 year to current_date)
                         and idcidlo = $id
@@ -12,7 +13,8 @@
                         order by datum desc");
   $rokTeplota = ibase_execute($prep);
 
-  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(rychlost) RYCHLOST
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(rychlost) MINRYCHLOST, avg(rychlost) AVGRYCHLOST,
+                        max(rychlost) MAXRYCHLOST
                         from teplomer_data
                         where datum  > dateadd(-1 year to current_date)
                         and idcidlo = $id
@@ -20,7 +22,8 @@
                         order by datum desc");
   $rokRychlost = ibase_execute($prep);
 
-  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, avg(relvlhkost) VLHKOST
+  $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(relvlhkost) MINVLHKOST, avg(relvlhkost) AVGVLHKOST,
+                        max(relvlhkost) MAXVLHKOST
                         from teplomer_data
                         where datum  > dateadd(-1 year to current_date)
                         and idcidlo = $id
@@ -37,21 +40,21 @@
   <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
     <h4 class="blueRow p-2">Teplota za poslední měsíce</h4>
     <?php while($row = ibase_fetch_object($rokTeplota)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->TEPLOTA ?>°C
-    <?php endwhile ?>
+        <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINTEPLOTA ?>°C <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGTEPLOTA ?>°C <span style="color:#425aa5;">Max.:</span> <?= $row->MAXTEPLOTA ?>°C</p>
+      <?php endwhile ?>
   </div>
 
   <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
     <h4 class="blueRow p-2">Rychlost větru za poslední měsíce</h4>
     <?php while($row = ibase_fetch_object($rokRychlost)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->RYCHLOST ?>°C
+      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINRYCHLOST ?>°C <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGRYCHLOST ?>°C <span style="color:#425aa5;">Max.:</span> <?= $row->MAXRYCHLOST ?>°C</p>
     <?php endwhile ?>
   </div>
 
   <div class="infobox posledniDny text-center col-8 mt-3 mx-auto" style="font-size:0.75em">
     <h4 class="blueRow p-2">Vlhkost za poslední měsíce</h4>
     <?php while($row = ibase_fetch_object($rokVlhkost)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Průměr.:</span> <?= $row->VLHKOST ?>°C
+      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINVLHKOST ?>°C <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGVLHKOST ?>°C <span style="color:#425aa5;">Max.:</span> <?= $row->MAXVLHKOST ?>°C</p>
     <?php endwhile ?>
   </div>
 
