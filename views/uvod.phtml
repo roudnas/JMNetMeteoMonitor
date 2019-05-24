@@ -34,7 +34,7 @@
           document.getElementById('horniPanelos').innerHTML = this.responseText;
       }
     };
-    xmlhttp.open("GET","views/home/ajaxchecker.phtml",true);
+    xmlhttp.open("GET","views/home/ajaxhornimenu.phtml",true);
     xmlhttp.send();
   }
   checkData();
@@ -43,7 +43,7 @@
   </script>
 
   <script type="text/javascript">
-  function checkDolniData() {
+  function checkDolniDataOnLoad() {
   if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
   } else {
@@ -190,8 +190,11 @@
   xmlhttp.open("GET","views/home/aktualne.phtml",true);
   xmlhttp.send();
 }
-checkDolniData();
-setInterval('checkDolniData()',60000);
+checkDolniDataOnLoad();
+if (tabCHEC.value == "aktualneTab") {
+  setInterval('checkDolniDataOnLoad()',60000);
+}
+
   function clickAjHandler(str) {
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();

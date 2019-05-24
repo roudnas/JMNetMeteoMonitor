@@ -4,8 +4,8 @@
     $con = ibase_connect('1.2.3.123:/var/lib/czf/jmnet.gdb','teplomer','remolpet');
     $prep = ibase_prepare("select max(teplota)||'°C'maxTemp, min(teplota)||'°C'minTemp, avg(teplota)||'°C'avgTemp,
     max(absvlhkost)||'%'maxHum, min(absvlhkost)||'%'minHum, avg(absvlhkost)||'%'avgHum,
-    max(rychlost)||'km/h'maxRychlost, min(rychlost)||'km/h'minRychlost, avg(rychlost)||'km/h'avgRychlost,
-    max(NARAZY)||'km/h'maxNARAZY, min(NARAZY)||'km/h'minNARAZY, avg(NARAZY)||'km/h'avgNARAZY
+    max(rychlost)||'m/s'maxRychlost, min(rychlost)||'m/s'minRychlost, avg(rychlost)||'m/s'avgRychlost,
+    max(NARAZY)||'m/s'maxNARAZY, min(NARAZY)||'m/s'minNARAZY, avg(NARAZY)||'m/s'avgNARAZY
     from (
     select * from teplomer_data
     where idcidlo = $id
@@ -16,7 +16,8 @@
     $row = ibase_fetch_assoc($res);
  ?>
 
-<div class="aktualne p-5">
+<div class="aktualneCHECK p-5">
+  <input style="display:none;" id="tabCHECK" type="text" name="" value="aktualneTab">
   <?php if($row['MINTEMP']) : ?>
   <h1 style="color:#425aa5;">Dnes</h1>
   <div class="row justify-content-around py-3" style="font-size:0.7em;">
@@ -25,20 +26,20 @@
       <h3 class="col-6">Teplota</h3>
       <h3 class="col-6">Vlhkost</h3>
       <div class="teplotaData col-6">
-        <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINTEMP'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGTEMP'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MAXTEMP'] ?></h4>
+        <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINTEMP'] ?> | <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGTEMP'] ?> | <span style="color:#425aa5;">Max.: </span><?= $row['MAXTEMP'] ?></h4>
       </div>
       <div class="vlhkostData col-6">
-        <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINHUM'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGHUM'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MAXHUM'] ?></h4>
+        <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINHUM'] ?> | <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGHUM'] ?> | <span style="color:#425aa5;">Max.: </span><?= $row['MAXHUM'] ?></h4>
       </div>
       <h3 class="col-6">Rychlost větru</h3>
       <h3 class="col-6">Nárazová RV</h3>
     <div class="vitrData col-6">
-      <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINRYCHLOST'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGRYCHLOST'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MAXRYCHLOST'] ?></h4>
+      <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINRYCHLOST'] ?> | <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGRYCHLOST'] ?> | <span style="color:#425aa5;">Max.: </span><?= $row['MAXRYCHLOST'] ?></h4>
     </div>
 
 
       <div class="narazData col-6">
-      <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINNARAZY'] ?> <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGNARAZY'] ?> <span style="color:#425aa5;">Max.: </span><?= $row['MAXNARAZY'] ?>
+      <h4><span style="color:#425aa5;">Min.: </span><?= $row['MINNARAZY'] ?> | <span style="color:#425aa5;">Průměr.: </span><?= $row['AVGNARAZY'] ?> | <span style="color:#425aa5;">Max.: </span><?= $row['MAXNARAZY'] ?>
       </h4></div>
 
   </div>

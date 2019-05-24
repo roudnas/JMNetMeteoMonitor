@@ -29,6 +29,7 @@ session_start();
 
 ?>
 <div class="dennisouhrn p-5">
+  <input style="display:none;" id="tabCHECK" type="text" name="" value="denniTab">
 <div class="charts p-3" style="background-color:#fff;" id="chart_denni"></div>
 <div class="charts p-3" style="background-color:#fff;" id="chart_denniVlhkost"></div>
 <div class="row justify-content-around">
@@ -41,7 +42,7 @@ session_start();
   <div class="infobox posledniDny text-center col-5 mt-3 mx-auto" style="font-size:0.75em">
     <h4 class="blueRow p-2">Ryhlost větru za poslední dny</h4>
     <?php while($row = ibase_fetch_object($posledniDny1)) : ?>
-      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINRYCHLOST ?>km/h <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGRYCHLOST ?>km/h <span style="color:#425aa5;">Max.:</span> <?= $row->MAXRYCHLOST ?>km/h</p>
+      <p class="statistika"><?= $row->DATUM ?> <span style="color:#425aa5;">Min.:</span> <?= $row->MINRYCHLOST ?>m/s <span style="color:#425aa5;">Průměr.:</span> <?= $row->AVGRYCHLOST ?>m/s <span style="color:#425aa5;">Max.:</span> <?= $row->MAXRYCHLOST ?>m/s</p>
     <?php endwhile ?>
   </div>
 </div>
