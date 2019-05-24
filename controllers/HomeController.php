@@ -16,15 +16,6 @@
     $date = $DnesManager->getDate($this->staniceId);
     $date = $date[0];
     $this->data['id'] = $this->staniceId;
-    $this->data['currData'] = $DnesManager->getCurrentData($this->staniceId);
-    $this->data['pocetMereni'] = $DnesManager->getPocetMereni($this->staniceId);
-    $this->data['prvniMer'] = $DnesManager->getPrvniMereni($this->staniceId);
-    $this->data['maxTeplota'] = $DnesManager->getExtremTeploty('max',$this->staniceId);
-    $this->data['minTeplota'] = $DnesManager->getExtremTeploty('min',$this->staniceId);
-    $this->data['jmenoCidla'] = $DnesManager->getCidloNameById($this->staniceId);
-    $this->data['posledniDobou'] = $DnesManager->getPosledniDobou($this->staniceId, $cas);
-    $this->data['timeAndTemp'] = $DnesManager->getTodaysTempAndTime($this->staniceId);
-    $this->data['extremy'] = $DnesManager->getExtremeByDay($this->staniceId);
     $this->data['getTimeAndTemp'] = $DnesManager->getTimeAndTemp($this->staniceId);
     $this->data['getTimeAndTemp2'] = $DnesManager->getTimeAndTemp($this->staniceId);
     $this->data['getHumidity'] = $DnesManager->getHumidity($this->staniceId);
