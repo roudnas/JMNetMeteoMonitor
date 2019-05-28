@@ -23,18 +23,14 @@
     public function getTimeAndTemp($id){
       return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||','|| narazy ||','|| rosnybod ||']' as DATA from teplomer_data
                                 where idcidlo = $id
-                                and datum like '' || (select first 1
-                                skip 0 substr(datum,1,11) from TEPLOMER_DATA
-                                order by datum desc) ||'%'
+                                and datum > dateadd(-1 day to current_date)
                                 order by datum asc;");
     }
 
     public function getHumidity($id){
       return Db::multiQuery("select '['||substr(datum,12,13)||','|| relvlhkost ||']' as DATA from teplomer_data
                                 where idcidlo = $id
-                                and datum like '' || (select first 1
-                                skip 0 substr(datum,1,11) from TEPLOMER_DATA
-                                order by datum desc) ||'%'
+                                and datum > dateadd(-1 day to current_date)
                                 order by datum asc;");
     }
 
