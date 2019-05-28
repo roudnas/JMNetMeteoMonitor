@@ -16,10 +16,10 @@
     $date = $DnesManager->getDate($this->staniceId);
     $date = $date[0];
     $this->data['id'] = $this->staniceId;
-    $this->data['getTimeAndTemp'] = $DnesManager->getTimeAndTemp($this->staniceId);
-    $this->data['getHumidity'] = $DnesManager->getHumidity($this->staniceId);
-    $this->data['getLast3DaysTimeTemp'] = $DnesManager->getLast3DaysTimeTemp($this->staniceId);
-    $this->data['getLast3DaysHumidity'] = $DnesManager->getLast3DaysHumidity($this->staniceId);
+    $this->data['getTimeAndTemp'] = $DnesManager->getTimeAndTemp($this->staniceId,1);
+    $this->data['getHumidity'] = $DnesManager->getHumidity($this->staniceId,1);
+    $this->data['getLast3DaysTimeTemp'] = $DnesManager->getTimeAndTemp($this->staniceId,3);
+    $this->data['getLast3DaysHumidity'] = $DnesManager->getHumidity($this->staniceId,3);
     $this->data['mesicniSouhrn'] = $DnesManager->getMesicniSouhrn($this->staniceId);
     $this->data['mesicniSouhrnVlhkost'] = $DnesManager->getMesicniSouhrnVlhkost($this->staniceId);
     $this->data['rocniSouhrn'] = $DnesManager->getRocniSouhrn($this->staniceId, 1);

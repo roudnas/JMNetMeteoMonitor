@@ -20,18 +20,18 @@
     }
 
 
-    public function getTimeAndTemp($id){
-      return Db::multiQuery("select '['||substr(datum,12,13)||','||teplota ||','|| rychlost ||','|| narazy ||','|| rosnybod ||']' as DATA from teplomer_data
-                                where idcidlo = $id
-                                and datum > dateadd(-1 day to current_date)
-                                order by datum asc;");
+    public function getTimeAndTemp($id, $pocetDni){
+      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, TEPLOTA, RYCHLOST,NARAZY, ROSNYBOD
+                             from teplomer_data where
+                            datum > dateadd(-$pocetDni day to current_date) and idcidlo = $id
+                            order by datum asc;");
     }
 
-    public function getHumidity($id){
-      return Db::multiQuery("select '['||substr(datum,12,13)||','|| relvlhkost ||']' as DATA from teplomer_data
-                                where idcidlo = $id
-                                and datum > dateadd(-1 day to current_date)
-                                order by datum asc;");
+    public function getHumidity($id, $pocetDni){
+      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, RELVLHKOST
+                             from teplomer_data where
+                            datum > dateadd(-$pocetDni day to current_date) and idcidlo = $id
+                            order by datum asc;");
     }
 
     public function getLast3DaysTimeTemp($id){

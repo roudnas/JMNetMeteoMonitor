@@ -4,10 +4,12 @@ $poleDatVl = array();
 $poleDat3DaysTT = array();
 $poleDat3DaysVl = array();
 while($dataGraf = ibase_fetch_object($getTimeAndTemp))  {
-    $poleDatTAT[] = $dataGraf->DATA;
+  $mesic = $dataGraf->MESIC - 1;
+    $poleDatTAT[] = '[' . "new Date($dataGraf->ROK,$mesic,$dataGraf->DEN,$dataGraf->HODINA,$dataGraf->MINUTA), $dataGraf->TEPLOTA,$dataGraf->RYCHLOST,$dataGraf->NARAZY,$dataGraf->ROSNYBOD" . ']';
 }
 while($dataGraf = ibase_fetch_object($getHumidity))  {
-    $poleDatVl[] = $dataGraf->DATA;
+  $mesic = $dataGraf->MESIC - 1;
+    $poleDatVl[] = '[' . "new Date($dataGraf->ROK,$mesic,$dataGraf->DEN,$dataGraf->HODINA,$dataGraf->MINUTA), $dataGraf->RELVLHKOST" . ']';
 }
 while($dataGraf = ibase_fetch_object($getLast3DaysTimeTemp))  {
     $mesic = $dataGraf->MESIC - 1;
@@ -88,7 +90,7 @@ while($dataGraf = ibase_fetch_object($getLast3DaysHumidity))  {
           google.charts.setOnLoadCallback(drawBasic_Aktualne_1_1);
           function drawBasic_Aktualne_1_1() {
               var data = new google.visualization.DataTable();
-              data.addColumn('number', 'čas');
+              data.addColumn('date', 'Datum');
               data.addColumn('number', 'Teplota');
               data.addColumn('number', 'Rychlost větru');
               data.addColumn('number', 'Nárazová rychlost větru');
@@ -123,7 +125,7 @@ while($dataGraf = ibase_fetch_object($getLast3DaysHumidity))  {
           google.charts.setOnLoadCallback(drawBasic_Aktuale_2_1);
           function drawBasic_Aktuale_2_1() {
               var data = new google.visualization.DataTable();
-              data.addColumn('number', 'čas');
+              data.addColumn('date', 'Datum');
               data.addColumn('number', 'Vlhkost');
 
               data.addRows([
@@ -248,7 +250,7 @@ setTimeout(function() {
                     google.charts.setOnLoadCallback(drawBasic_Aktualne_1_2);
                     function drawBasic_Aktualne_1_2() {
                         var data = new google.visualization.DataTable();
-                        data.addColumn('number', 'čas');
+                        data.addColumn('date', 'Datum');
                         data.addColumn('number', 'Teplota');
                         data.addColumn('number', 'Rychlost větru');
                         data.addColumn('number', 'Nárazová rychlost větru');
@@ -282,7 +284,7 @@ setTimeout(function() {
                     google.charts.setOnLoadCallback(drawBasic_Aktualne_2_2);
                     function drawBasic_Aktualne_2_2() {
                         var data = new google.visualization.DataTable();
-                        data.addColumn('number', 'čas');
+                        data.addColumn('date', 'Datum');
                         data.addColumn('number', 'Vlhkost');
 
                         data.addRows([
