@@ -59,7 +59,9 @@ footer {
   min-height: 60vh;
       box-shadow: 0 20px 25px 0 rgba(66, 90, 165, 0.2);
 }
-
+.nav-pills {
+  background-color: #425aa5;
+}
 .ajmenu a {
   text-decoration: none;
   color: #fff;

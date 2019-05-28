@@ -1,10 +1,22 @@
+<?php
+$poleDatTAT = array();
+$poleDatVl = array();
+while($dataGraf = ibase_fetch_object($getTimeAndTemp))  {
+    $poleDatTAT[] = $dataGraf->DATA;
+}
+while($dataGraf = ibase_fetch_object($getHumidity))  {
+    $poleDatVl[] = $dataGraf->DATA;
+}
+ ?>
+
+
 <section class="horniPanel d-flex justify-content-between p-5" id="horniPanelos">
 <img style="position:relative; left:50%;" src='images/loading.gif'>
 </section>
 
   <div class="p-4 dolejsekWrapper">
     <section class="ajmenu w-75 mx-auto">
-      <ul class="nav nav-pills nav-fill bg-dark">
+      <ul class="nav nav-pills nav-fill">
   <li class="nav-item" onClick="clickAjHandler(`aktualne`)">
     <a id="navLinkAjAktualne" class="nav-link pt-3">Aktuálně</a>
   </li>
@@ -21,6 +33,8 @@
     <div id="ajoutput"><img class="mt-5" style="position:relative;left:50%;" src='images/loading.gif'></div>
     </section>
   </div>
+
+
 
   <script type="text/javascript">
   function checkData() {
@@ -70,9 +84,9 @@
               data.addColumn('number', 'Rosný bod');
 
               data.addRows([
-                  <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp)) : ?>
-                    <?=  $dataGraf->DATA ?>,
-                  <?php endwhile ?>
+                  <?php foreach($poleDatTAT as $k) : ?>
+                  <?= $k ?>,
+                  <?php endforeach ?>
               ]);
 
               var options = {
@@ -102,9 +116,9 @@
               data.addColumn('number', 'Vlhkost');
 
               data.addRows([
-                <?php while($dataGraf = ibase_fetch_object($getHumidity)) : ?>
-                  <?=  $dataGraf->DATA ?>,
-                <?php endwhile ?>
+                <?php foreach($poleDatVl as $k) : ?>
+                <?= $k ?>,
+                <?php endforeach ?>
               ]);
 
               var options = {
@@ -195,387 +209,391 @@ setTimeout(function() {
   if (tabCHECK.value == "aktualneTab") {
     setInterval('checkDolniDataOnLoad()',60000);
   }
-},3000)
+},5000)
+
+  </script>
+
+  <script type="text/javascript">
 
 
-  function clickAjHandler(str) {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              if (document.getElementById("ajoutput").innerHTML != this.responseText) {
-                document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
-              }
-                document.getElementById("ajoutput").innerHTML = this.responseText;
-                if (str == "aktualne") {
-                  //Graf aktualne 1.2
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChart_Aktualne_1_2);
-                  function drawChart_Aktualne_1_2() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic_Aktualne_1_2);
-                  function drawBasic_Aktualne_1_2() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('number', 'čas');
-                      data.addColumn('number', 'Teplota');
-                      data.addColumn('number', 'Rychlost větru');
-                      data.addColumn('number', 'Nárazová rychlost větru');
-                      data.addColumn('number', 'Rosný bod');
-
-                      data.addRows([
-                        <?php while($dataGraf = ibase_fetch_object($getTimeAndTemp2)) : ?>
-                          <?=  $dataGraf->DATA ?>,
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'title': 'Posledních 24 hodin',
-                        'curveType': 'function',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_aktualne'));
-                      chart.draw(data, google.charts.Line.convertOptions(options));
-                    }
-                  }
-                  //Graf aktualne 1.2 KONEC
-
-                  google.charts.setOnLoadCallback(drawChart_Aktualne_2_2);
-                  function drawChart_Aktualne_2_2() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic_Aktualne_2_2);
-                  function drawBasic_Aktualne_2_2() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('number', 'čas');
-                      data.addColumn('number', 'Vlhkost');
-
-                      data.addRows([
-                        <?php while($dataGraf = ibase_fetch_object($getHumidity2)) : ?>
-                          <?=  $dataGraf->DATA ?>,
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_aktualne1'));
-                      chart.draw(data, options);
-                    }
-                  }
-                  //Graf aktualne 2.2 KONEC
-                  //Graf 3dny
-                  google.charts.setOnLoadCallback(drawChart_3Dny);
-                  function drawChart_3Dny() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic3Dny);
-                  function drawBasic3Dny() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'Datum');
-                      data.addColumn('number', 'Teplota');
-                      data.addColumn('number', 'Rychlost větru');
-                      data.addColumn('number', 'Nárazová rychlost větru');
-                      data.addColumn('number', 'Rosný bod');
-
-                      data.addRows([
-                        <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp2)) : ?>
-                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->NARAZY?>,<?=$dG->ROSNYBOD?>],
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'title': 'Poslední 3 dny',
-                        'curveType': 'function',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_3dny'));
-                      chart.draw(data, google.charts.Line.convertOptions(options));
-                    }
-                  }
-                  //Graf 3dny konec
-
-                  google.charts.setOnLoadCallback(drawChart_3DnyVlhkost);
-                  function drawChart_3DnyVlhkost() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic3DnyVlhkost);
-                  function drawBasic3DnyVlhkost() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'Datum');
-                      data.addColumn('number', 'Vlhkost');
-
-                      data.addRows([
-                        <?php while($dG = ibase_fetch_object($getLast3DaysHumidity2)) : ?>
-                          [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->RELVLHKOST?>],
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'curveType': 'function',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_3dnyVlhkost'));
-                      chart.draw(data, google.charts.Line.convertOptions(options));
-                    }
-                  }
-
-                } else if (str == "dennisouhrn") {
-
-                  //Graf denni 1
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChart4);
-                  function drawChart4() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasic4);
-
-                  function drawBasic4() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'datum');
-                      data.addColumn('number', 'Teplota');
-                      data.addColumn('number', 'Rychlost větru');
-                      data.addColumn('number', 'Nárazová rychlost větru');
-                      data.addColumn('number', 'Rosný bod');
-
-                      data.addRows([
-                          <?php while($gD = ibase_fetch_object($mesicniSouhrn)) : ?>
-                          <?php $date = $gD->DATUM;
-                              $dateY = substr($date, 0,4);
-                              $dateM = substr($date, 5,2);
-                              $dateD = substr($date, 8,2);
-                           ?>
-                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGNARAZY ?>,<?= $gD->AVGRB ?>],
-                          <?php endwhile ?>
-                    ]);
-
-                      var options = {
-                        'title':'Denní souhrn',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_denni'));
-                      chart.draw(data, options);
-                    }
-                  }
-
-                  //Graf denni vlhkost
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChartDenniVlhkost);
-                  function drawChartDenniVlhkost() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasicDenniVlhkost);
-
-                  function drawBasicDenniVlhkost() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'datum');
-                      data.addColumn('number', 'Vlhkost');
-
-                      data.addRows([
-                          <?php while($gD = ibase_fetch_object($mesicniSouhrnVlhkost)) : ?>
-                          <?php $date = $gD->DATUM;
-                              $dateY = substr($date, 0,4);
-                              $dateM = substr($date, 5,2);
-                              $dateD = substr($date, 8,2);
-                           ?>
-                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->VLHKOST ?>],
-                          <?php endwhile ?>
-                    ]);
-
-                      var options = {
-                        'title':'Denní souhrn vlhkosti',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_denniVlhkost'));
-                      chart.draw(data, options);
-                    }
-                  }
-
-                  //Graf denni 1 KONEC
-                } else if (str == "mesicnisouhrn") {
-                  //Graf mesicni 1
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChartMesicni);
-                  function drawChartMesicni() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasicMesicni);
-
-                  function drawBasicMesicni() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'čas');
-                      data.addColumn('number', 'Teplota');
-                      data.addColumn('number', 'Rychlost větru');
-                      data.addColumn('number', 'Nárazová rychlost')
-
-                      data.addRows([
-                        <?php while($gD = ibase_fetch_object($rocniSouhrn)) : ?>
-                        <?php $date = $gD->DATUM;
-                            $dateY = substr($date, 0,4);
-                            $dateM = substr($date, 5,2);
-                         ?>
-                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>, <?= $gD->NARAZ ?>],
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'title':'Roční souhrn',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_mesicni'));
-                      chart.draw(data, options);
-                    }
-                  }
-
-                  //Graf mesnicni vlhkosti
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChartMesicniVlhkost);
-                  function drawChartMesicniVlhkost() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasicMesicniVlhkost);
-
-                  function drawBasicMesicniVlhkost() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'čas');
-                      data.addColumn('number', 'Vlhkost');
-
-                      data.addRows([
-                        <?php while($gD = ibase_fetch_object($getRocniSouhrnVlhkost)) : ?>
-                        <?php $date = $gD->DATUM;
-                            $dateY = substr($date, 0,4);
-                            $dateM = substr($date, 5,2);
-                         ?>
-                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->VLHKOST ?>],
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'title':'Roční souhrn',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('chart_mesicniVlhkost'));
-                      chart.draw(data, options);
-                    }
-                  }
-
-                } else if (str == "rocnisouhrn"){
-
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChartRocni);
-                  function drawChartRocni() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasicRocni);
-
-                  function drawBasicRocni() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'čas');
-                      data.addColumn('number', 'Teplota');
-                      data.addColumn('number', 'Rychlost větru');
-                      data.addColumn('number', 'Nárazová rychlost')
-
-                      data.addRows([
-                        <?php while($gD = ibase_fetch_object($rocniSouhrn5)) : ?>
-                        <?php $date = $gD->DATUM;
-                            $dateY = substr($date, 0,4);
-                            $dateM = substr($date, 5,2);
-                         ?>
-                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>, <?= $gD->NARAZ ?>],
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'title':'Roční souhrn',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('rocniSouhrn'));
-                      chart.draw(data, options);
-                    }
-                  }
-
-                  //Rocni vlhkost
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawChartRocniVlhkost);
-                  function drawChartRocniVlhkost() {
-                  google.charts.load('current', {'packages':['line']});
-                  google.charts.setOnLoadCallback(drawBasicRocniVlhkost);
-
-                  function drawBasicRocniVlhkost() {
-                      var data = new google.visualization.DataTable();
-                      data.addColumn('date', 'čas');
-                      data.addColumn('number', 'Vlhkost');
-
-                      data.addRows([
-                        <?php while($gD = ibase_fetch_object($getRocniSouhrnVlhkost5)) : ?>
-                        <?php $date = $gD->DATUM;
-                            $dateY = substr($date, 0,4);
-                            $dateM = substr($date, 5,2);
-                         ?>
-                          [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>), <?= $gD->VLHKOST ?>],
-                        <?php endwhile ?>
-                      ]);
-
-                      var options = {
-                        'title':'Roční souhrn vlhkosti',
-                        hAxis: {
-                          title: 'Čas'
-                        },
-                        vAxis: {
-                          title: 'Hodnota'
-                        }
-                      };
-                      var chart = new google.charts.Line(document.getElementById('rocniSouhrnVlhkost'));
-                      chart.draw(data, options);
-                    }
-                  }
-
+    function clickAjHandler(str) {
+          if (window.XMLHttpRequest) {
+              xmlhttp = new XMLHttpRequest();
+          } else {
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                if (document.getElementById("ajoutput").innerHTML != this.responseText) {
+                  document.getElementById("ajoutput").innerHTML = "<p><img src='images/loading.gif'></p>";
                 }
+                  document.getElementById("ajoutput").innerHTML = this.responseText;
+                  if (str == "aktualne") {
+                    //Graf aktualne 1.2
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChart_Aktualne_1_2);
+                    function drawChart_Aktualne_1_2() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasic_Aktualne_1_2);
+                    function drawBasic_Aktualne_1_2() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'čas');
+                        data.addColumn('number', 'Teplota');
+                        data.addColumn('number', 'Rychlost větru');
+                        data.addColumn('number', 'Nárazová rychlost větru');
+                        data.addColumn('number', 'Rosný bod');
 
-            }
-        };
-        //Graf mesicni 1 KONEC
-        xmlhttp.open("GET","views/home/" + str + ".phtml",true);
-        xmlhttp.send();
-    }
+                        data.addRows([
+                          <?php foreach($poleDatTAT as $k) : ?>
+                          <?= $k ?>,
+                          <?php endforeach ?>
+                        ]);
+
+                        var options = {
+                          'title': 'Posledních 24 hodin',
+                          'curveType': 'function',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_aktualne'));
+                        chart.draw(data, google.charts.Line.convertOptions(options));
+                      }
+                    }
+                    //Graf aktualne 1.2 KONEC
+
+                    google.charts.setOnLoadCallback(drawChart_Aktualne_2_2);
+                    function drawChart_Aktualne_2_2() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasic_Aktualne_2_2);
+                    function drawBasic_Aktualne_2_2() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'čas');
+                        data.addColumn('number', 'Vlhkost');
+
+                        data.addRows([
+                          <?php foreach($poleDatVl as $k) : ?>
+                          <?= $k ?>,
+                          <?php endforeach ?>
+                        ]);
+
+                        var options = {
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_aktualne1'));
+                        chart.draw(data, options);
+                      }
+                    }
+                    //Graf aktualne 2.2 KONEC
+                    //Graf 3dny
+                    google.charts.setOnLoadCallback(drawChart_3Dny);
+                    function drawChart_3Dny() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasic3Dny);
+                    function drawBasic3Dny() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'Datum');
+                        data.addColumn('number', 'Teplota');
+                        data.addColumn('number', 'Rychlost větru');
+                        data.addColumn('number', 'Nárazová rychlost větru');
+                        data.addColumn('number', 'Rosný bod');
+
+                        data.addRows([
+                          <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp2)) : ?>
+                            [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->NARAZY?>,<?=$dG->ROSNYBOD?>],
+                          <?php endwhile ?>
+                        ]);
+
+                        var options = {
+                          'title': 'Poslední 3 dny',
+                          'curveType': 'function',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_3dny'));
+                        chart.draw(data, google.charts.Line.convertOptions(options));
+                      }
+                    }
+                    //Graf 3dny konec
+
+                    google.charts.setOnLoadCallback(drawChart_3DnyVlhkost);
+                    function drawChart_3DnyVlhkost() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasic3DnyVlhkost);
+                    function drawBasic3DnyVlhkost() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'Datum');
+                        data.addColumn('number', 'Vlhkost');
+
+                        data.addRows([
+                          <?php while($dG = ibase_fetch_object($getLast3DaysHumidity2)) : ?>
+                            [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->RELVLHKOST?>],
+                          <?php endwhile ?>
+                        ]);
+
+                        var options = {
+                          'curveType': 'function',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_3dnyVlhkost'));
+                        chart.draw(data, google.charts.Line.convertOptions(options));
+                      }
+                    }
+
+                  } else if (str == "dennisouhrn") {
+
+                    //Graf denni 1
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChart4);
+                    function drawChart4() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasic4);
+
+                    function drawBasic4() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'datum');
+                        data.addColumn('number', 'Teplota');
+                        data.addColumn('number', 'Rychlost větru');
+                        data.addColumn('number', 'Nárazová rychlost větru');
+                        data.addColumn('number', 'Rosný bod');
+
+                        data.addRows([
+                            <?php while($gD = ibase_fetch_object($mesicniSouhrn)) : ?>
+                            <?php $date = $gD->DATUM;
+                                $dateY = substr($date, 0,4);
+                                $dateM = substr($date, 5,2);
+                                $dateD = substr($date, 8,2);
+                             ?>
+                              [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->AVGTEMP ?>,<?= $gD->AVGRYCHLOST ?>,<?= $gD->AVGNARAZY ?>,<?= $gD->AVGRB ?>],
+                            <?php endwhile ?>
+                      ]);
+
+                        var options = {
+                          'title':'Denní souhrn',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_denni'));
+                        chart.draw(data, options);
+                      }
+                    }
+
+                    //Graf denni vlhkost
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChartDenniVlhkost);
+                    function drawChartDenniVlhkost() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasicDenniVlhkost);
+
+                    function drawBasicDenniVlhkost() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'datum');
+                        data.addColumn('number', 'Vlhkost');
+
+                        data.addRows([
+                            <?php while($gD = ibase_fetch_object($mesicniSouhrnVlhkost)) : ?>
+                            <?php $date = $gD->DATUM;
+                                $dateY = substr($date, 0,4);
+                                $dateM = substr($date, 5,2);
+                                $dateD = substr($date, 8,2);
+                             ?>
+                              [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>,<?= $dateD ?>),<?= $gD->VLHKOST ?>],
+                            <?php endwhile ?>
+                      ]);
+
+                        var options = {
+                          'title':'Denní souhrn vlhkosti',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_denniVlhkost'));
+                        chart.draw(data, options);
+                      }
+                    }
+
+                    //Graf denni 1 KONEC
+                  } else if (str == "mesicnisouhrn") {
+                    //Graf mesicni 1
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChartMesicni);
+                    function drawChartMesicni() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasicMesicni);
+
+                    function drawBasicMesicni() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'čas');
+                        data.addColumn('number', 'Teplota');
+                        data.addColumn('number', 'Rychlost větru');
+                        data.addColumn('number', 'Nárazová rychlost')
+
+                        data.addRows([
+                          <?php while($gD = ibase_fetch_object($rocniSouhrn)) : ?>
+                          <?php $date = $gD->DATUM;
+                              $dateY = substr($date, 0,4);
+                              $dateM = substr($date, 5,2);
+                           ?>
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>, <?= $gD->NARAZ ?>],
+                          <?php endwhile ?>
+                        ]);
+
+                        var options = {
+                          'title':'Roční souhrn',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_mesicni'));
+                        chart.draw(data, options);
+                      }
+                    }
+
+                    //Graf mesnicni vlhkosti
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChartMesicniVlhkost);
+                    function drawChartMesicniVlhkost() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasicMesicniVlhkost);
+
+                    function drawBasicMesicniVlhkost() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'čas');
+                        data.addColumn('number', 'Vlhkost');
+
+                        data.addRows([
+                          <?php while($gD = ibase_fetch_object($getRocniSouhrnVlhkost)) : ?>
+                          <?php $date = $gD->DATUM;
+                              $dateY = substr($date, 0,4);
+                              $dateM = substr($date, 5,2);
+                           ?>
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->VLHKOST ?>],
+                          <?php endwhile ?>
+                        ]);
+
+                        var options = {
+                          'title':'Roční souhrn',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('chart_mesicniVlhkost'));
+                        chart.draw(data, options);
+                      }
+                    }
+
+                  } else if (str == "rocnisouhrn"){
+
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChartRocni);
+                    function drawChartRocni() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasicRocni);
+
+                    function drawBasicRocni() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'čas');
+                        data.addColumn('number', 'Teplota');
+                        data.addColumn('number', 'Rychlost větru');
+                        data.addColumn('number', 'Nárazová rychlost')
+
+                        data.addRows([
+                          <?php while($gD = ibase_fetch_object($rocniSouhrn5)) : ?>
+                          <?php $date = $gD->DATUM;
+                              $dateY = substr($date, 0,4);
+                              $dateM = substr($date, 5,2);
+                           ?>
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>),<?= $gD->TEPLOTA ?>,<?= $gD->RYCHLOST ?>, <?= $gD->NARAZ ?>],
+                          <?php endwhile ?>
+                        ]);
+
+                        var options = {
+                          'title':'Roční souhrn',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('rocniSouhrn'));
+                        chart.draw(data, options);
+                      }
+                    }
+
+                    //Rocni vlhkost
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChartRocniVlhkost);
+                    function drawChartRocniVlhkost() {
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawBasicRocniVlhkost);
+
+                    function drawBasicRocniVlhkost() {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('date', 'čas');
+                        data.addColumn('number', 'Vlhkost');
+
+                        data.addRows([
+                          <?php while($gD = ibase_fetch_object($getRocniSouhrnVlhkost5)) : ?>
+                          <?php $date = $gD->DATUM;
+                              $dateY = substr($date, 0,4);
+                              $dateM = substr($date, 5,2);
+                           ?>
+                            [new Date(<?= $dateY ?>,<?= $dateM - 1 ?>), <?= $gD->VLHKOST ?>],
+                          <?php endwhile ?>
+                        ]);
+
+                        var options = {
+                          'title':'Roční souhrn vlhkosti',
+                          hAxis: {
+                            title: 'Čas'
+                          },
+                          vAxis: {
+                            title: 'Hodnota'
+                          }
+                        };
+                        var chart = new google.charts.Line(document.getElementById('rocniSouhrnVlhkost'));
+                        chart.draw(data, options);
+                      }
+                    }
+
+                  }
+
+              }
+          };
+          //Graf mesicni 1 KONEC
+          xmlhttp.open("GET","views/home/" + str + ".phtml",true);
+          xmlhttp.send();
+      }
 
   </script>

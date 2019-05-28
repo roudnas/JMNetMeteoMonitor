@@ -1,4 +1,8 @@
 <?php
+require "konfigurace/config.php";
+
+
+
 session_start();
 mb_internal_encoding("UTF-8");
 function autoLoadFunkce($cls) {
@@ -9,7 +13,7 @@ function autoLoadFunkce($cls) {
   }
 }
 spl_autoload_register("autoLoadFunkce");
-Db::connect('1.2.3.123:/var/lib/czf/jmnet.gdb','teplomer','remolpet');
+Db::connect($dbAdr, $dbUsr, $dbPw);
 $router = new RouterController();
 $router->zpracuj(array($_SERVER['REQUEST_URI']));
 $router->showView();

@@ -1,7 +1,8 @@
 <?php
+  require "../../konfigurace/config.php";
 
   session_start();
-  $con =  ibase_connect("1.2.3.123:/var/lib/czf/jmnet.gdb", 'teplomer', 'remolpet');
+  $con =  ibase_connect($dbAdr, $dbUsr, $dbPw);
   $id = $_SESSION['staniceID'];
 
   $prep = ibase_prepare("select distinct substr(datum,1,7) DATUM, min(teplota) MINTEPLOTA, avg(teplota) AVGTEPLOTA,

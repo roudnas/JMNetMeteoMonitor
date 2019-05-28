@@ -17,9 +17,7 @@
     $date = $date[0];
     $this->data['id'] = $this->staniceId;
     $this->data['getTimeAndTemp'] = $DnesManager->getTimeAndTemp($this->staniceId);
-    $this->data['getTimeAndTemp2'] = $DnesManager->getTimeAndTemp($this->staniceId);
     $this->data['getHumidity'] = $DnesManager->getHumidity($this->staniceId);
-    $this->data['getHumidity2'] = $DnesManager->getHumidity($this->staniceId);
     $this->data['getLast3DaysTimeTemp'] = $DnesManager->getLast3DaysTimeTemp($this->staniceId);
     $this->data['getLast3DaysTimeTemp2'] = $DnesManager->getLast3DaysTimeTemp($this->staniceId);
     $this->data['getLast3DaysHumidity'] = $DnesManager->getLast3DaysHumidity($this->staniceId);

@@ -1,7 +1,9 @@
 <?php
+    require "../../konfigurace/config.php";
+
     session_start();
     $id = $_SESSION['staniceID'];
-    $con = ibase_connect('1.2.3.123:/var/lib/czf/jmnet.gdb','teplomer','remolpet');
+    $con = ibase_connect($dbAdr, $dbUsr, $dbPw);
     $prep = ibase_prepare("select max(teplota)||'°C'maxTemp, min(teplota)||'°C'minTemp, avg(teplota)||'°C'avgTemp,
     max(absvlhkost)||'%'maxHum, min(absvlhkost)||'%'minHum, avg(absvlhkost)||'%'avgHum,
     max(rychlost)||'m/s'maxRychlost, min(rychlost)||'m/s'minRychlost, avg(rychlost)||'m/s'avgRychlost,

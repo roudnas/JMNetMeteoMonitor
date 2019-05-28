@@ -1,6 +1,8 @@
 <?php
-session_start();
-  $con =  ibase_connect("1.2.3.123:/var/lib/czf/jmnet.gdb", 'teplomer', 'remolpet');
+  require "../../konfigurace/config.php";
+
+  session_start();
+  $con =  ibase_connect($dbAdr, $dbUsr, $dbPw);
   $id = $_SESSION['staniceID'];
   $prep = ibase_prepare("select distinct substr(datum,1,11) datum, min(teplota)MINTEMP,avg(teplota)AVGTEMP,max(teplota)MAXTEMP
                             from teplomer_data
@@ -32,6 +34,7 @@ session_start();
   <input style="visibility: hidden;" id="tabCHECK" type="text" name="" value="denniTab">
 <div class="charts p-3" style="background-color:#fff;" id="chart_denni"></div>
 <div class="charts p-3" style="background-color:#fff;" id="chart_denniVlhkost"></div>
+<div class="charts p-3" style="background-color:#fff;" id="chart_denniTest"></div>
 <div class="row justify-content-around">
   <div class="infobox posledniDny text-center col-5 mt-3 mx-auto" style="font-size:0.75em">
     <h4 class="blueRow p-2">Teplota za poslední dny</h4>

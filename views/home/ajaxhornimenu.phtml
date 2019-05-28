@@ -1,6 +1,9 @@
 <?php
+require "../../konfigurace/config.php";
+
+
   session_start();
-  ibase_connect('1.2.3.123:/var/lib/czf/jmnet.gdb', 'teplomer', 'remolpet');
+  ibase_connect($dbAdr, $dbUsr, $dbPw);
   $stanId = $_SESSION['staniceID'];
   $prep = ibase_prepare("select first 1 skip 0 teplota, substr(datum,9,10) || '.' ||substr(datum,7,7) || '.' || substr(datum,1,4) || ' ' || substr(datum,12,19) DATUM, relvlhkost, rosnybod, rychlost, tlak, tlakvyska, pocitovatemp   from teplomer_data where idcidlo = $stanId order by id desc;");
   $res = ibase_execute($prep);
