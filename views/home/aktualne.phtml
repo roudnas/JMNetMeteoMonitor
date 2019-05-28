@@ -9,11 +9,9 @@
     max(rychlost)||'m/s'maxRychlost, min(rychlost)||'m/s'minRychlost, avg(rychlost)||'m/s'avgRychlost,
     max(NARAZY)||'m/s'maxNARAZY, min(NARAZY)||'m/s'minNARAZY, avg(NARAZY)||'m/s'avgNARAZY
     from (
-    select * from teplomer_data
-    where idcidlo = $id
-    and datum like '' || (select first 1
-    skip 0 substr(datum,1,11) from TEPLOMER_DATA
-    order by datum desc) ||'%' order by datum desc )");
+      select * from teplomer_data
+      where idcidlo = $id
+      and datum > dateadd(-1 day to current_date) )");
     $res = ibase_execute($prep);
     $row = ibase_fetch_assoc($res);
  ?>
