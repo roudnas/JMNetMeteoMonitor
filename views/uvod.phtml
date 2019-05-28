@@ -1,12 +1,23 @@
 <?php
 $poleDatTAT = array();
 $poleDatVl = array();
+$poleDat3DaysTT = array();
+$poleDat3DaysVl = array();
 while($dataGraf = ibase_fetch_object($getTimeAndTemp))  {
     $poleDatTAT[] = $dataGraf->DATA;
 }
 while($dataGraf = ibase_fetch_object($getHumidity))  {
     $poleDatVl[] = $dataGraf->DATA;
 }
+while($dataGraf = ibase_fetch_object($getLast3DaysTimeTemp))  {
+    $mesic = $dataGraf->MESIC - 1;
+    $poleDat3DaysTT[] = '[' . "new Date($dataGraf->ROK,$mesic,$dataGraf->DEN,$dataGraf->HODINA,$dataGraf->MINUTA), $dataGraf->TEPLOTA,$dataGraf->RYCHLOST,$dataGraf->NARAZY,$dataGraf->ROSNYBOD" . ']';
+}
+while($dataGraf = ibase_fetch_object($getLast3DaysHumidity))  {
+    $mesic = $dataGraf->MESIC - 1;
+    $poleDat3DaysVl[] = '[' . "new Date($dataGraf->ROK,$mesic,$dataGraf->DEN,$dataGraf->HODINA,$dataGraf->MINUTA), $dataGraf->RELVLHKOST" . ']';
+}
+
  ?>
 
 
@@ -149,9 +160,9 @@ while($dataGraf = ibase_fetch_object($getHumidity))  {
               data.addColumn('number', 'Rosný bod');
 
               data.addRows([
-                <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp)) : ?>
-                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->NARAZY?>,<?=$dG->ROSNYBOD?>],
-                <?php endwhile ?>
+                <?php foreach($poleDat3DaysTT as $k) : ?>
+                <?= $k ?>,
+                <?php endforeach ?>
               ]);
 
               var options = {
@@ -180,9 +191,9 @@ while($dataGraf = ibase_fetch_object($getHumidity))  {
               data.addColumn('number', 'Vlhkost');
 
               data.addRows([
-                <?php while($dG = ibase_fetch_object($getLast3DaysHumidity)) : ?>
-                  [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->RELVLHKOST?>],
-                <?php endwhile ?>
+                <?php foreach($poleDat3DaysVl as $k) : ?>
+                <?= $k ?>,
+                <?php endforeach ?>
               ]);
 
               var options = {
@@ -307,9 +318,9 @@ setTimeout(function() {
                         data.addColumn('number', 'Rosný bod');
 
                         data.addRows([
-                          <?php while($dG = ibase_fetch_object($getLast3DaysTimeTemp2)) : ?>
-                            [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->TEPLOTA?>,<?=$dG->RYCHLOST?>,<?=$dG->NARAZY?>,<?=$dG->ROSNYBOD?>],
-                          <?php endwhile ?>
+                          <?php foreach($poleDat3DaysTT as $k) : ?>
+                          <?= $k ?>,
+                          <?php endforeach ?>
                         ]);
 
                         var options = {
@@ -338,9 +349,9 @@ setTimeout(function() {
                         data.addColumn('number', 'Vlhkost');
 
                         data.addRows([
-                          <?php while($dG = ibase_fetch_object($getLast3DaysHumidity2)) : ?>
-                            [new Date(<?=$dG->ROK?>,<?=$dG->MESIC - 1?>,<?=$dG->DEN?>,<?=$dG->HODINA?>,<?=$dG->MINUTA?>), <?=$dG->RELVLHKOST?>],
-                          <?php endwhile ?>
+                          <?php foreach($poleDat3DaysVl as $k) : ?>
+                          <?= $k ?>,
+                          <?php endforeach ?>
                         ]);
 
                         var options = {
