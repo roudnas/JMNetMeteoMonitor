@@ -23,7 +23,7 @@
              <div class="navbar-nav ml-auto">
              </div>
            </section>
-           <select class="custom-select w-25" onchange="redir(this.value)">
+           <select class="custom-select w-25" id="seStanic" onchange="redir(this.value)">
              <option selected value="">Stanice</option>
              <?php while($row = ibase_fetch_object($seznamStanic)) : ?>
                   <option value="<?= $row->ID ?>"><?= $row->JMENO ?></option>
@@ -61,6 +61,8 @@
       function redir(str) {
         window.location.replace("home/idStanice-" + str);
       }
+      document.getElementById('seStanic').childNodes[7].innerHTML = "Kutná hora"
+      document.getElementById('seStanic').childNodes[9].innerHTML = "Letiště"
     </script>
   </body>
 </html>
