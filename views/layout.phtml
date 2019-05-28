@@ -26,6 +26,11 @@
            <select class="custom-select w-25" id="seStanic" onchange="redir(this.value)">
              <option selected value="">Stanice</option>
              <?php while($row = ibase_fetch_object($seznamStanic)) : ?>
+               <?php if($row->ID == "10")
+                        $row->JMENO = "Kutná Hora";
+                      else if ($row->ID == "8")
+                        $row->JMENO = "Letiště";
+                ?>
                   <option value="<?= $row->ID ?>"><?= $row->JMENO ?></option>
              <?php endwhile ?>
            </select>
@@ -61,8 +66,7 @@
       function redir(str) {
         window.location.replace("home/idStanice-" + str);
       }
-      document.getElementById('seStanic').childNodes[7].innerHTML = "Kutná hora"
-      document.getElementById('seStanic').childNodes[9].innerHTML = "Letiště"
+
     </script>
   </body>
 </html>

@@ -20,9 +20,15 @@ require "../../konfigurace/config.php";
                           order by datum desc");
   $posledniDobou = ibase_execute($prep1);
 
+
   $prepJmCid = ibase_prepare("select jmeno from teplomer where id = $stanId");
   $JmCidEx = ibase_execute($prepJmCid);
   $jmenoCidla = ibase_fetch_assoc($JmCidEx);
+  if ($stanId == 10)
+    $jmenoCidla['JMENO'] = "Kutná Hora";
+    else if ($stanId == 8)
+    $jmenoCidla['JMENO'] = "Letiště";
+
 
   $prepPocMer = ibase_prepare("select count(*) from teplomer_data where idcidlo = $stanId");
   $pocMerEx = ibase_execute($prepPocMer);
