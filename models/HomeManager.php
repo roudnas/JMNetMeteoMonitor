@@ -34,20 +34,6 @@
                             order by datum asc;");
     }
 
-    public function getLast3DaysTimeTemp($id){
-      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, TEPLOTA, RYCHLOST,NARAZY, ROSNYBOD
-                             from teplomer_data where
-                            datum > dateadd(-3 day to current_date) and idcidlo = $id
-                            order by datum asc;");
-    }
-
-    public function getLast3DaysHumidity($id){
-      return Db::multiQuery("select substr(datum, 1,4)ROK, substr(datum, 6,7)MESIC,substr(datum, 9,10)DEN, substr(datum, 12,13)HODINA, substr(datum, 15,16)MINUTA, RELVLHKOST
-                             from teplomer_data where
-                            datum > dateadd(-3 day to current_date) and idcidlo = $id
-                            order by datum asc;");
-    }
-
     public function getMesicniSouhrn($id) {
       return Db::multiQuery("select distinct substr(datum,1,11) datum, avg(teplota)AVGTEMP,avg(rychlost)AVGRYCHLOST,avg(NARAZY)AVGNARAZY, avg(rosnybod)AVGRB from teplomer_data
                               where datum  > dateadd(-1 month to current_date)
